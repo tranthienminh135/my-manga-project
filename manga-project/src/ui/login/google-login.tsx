@@ -1,5 +1,5 @@
 import { GoogleLogin } from '@react-oauth/google';
-import './login.scss';
+import './google-login.scss';
 
 interface LoginPropsType {
     callBackSuccessFn: Function;

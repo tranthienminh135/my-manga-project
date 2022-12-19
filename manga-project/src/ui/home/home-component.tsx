@@ -3,7 +3,8 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import PersonIcon from '@mui/icons-material/Person';
-import { FormControl, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import { FormControl, InputAdornment, OutlinedInput } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -18,9 +19,10 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { googleLogout } from '@react-oauth/google';
 import jwtDecode from 'jwt-decode';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { UrlFeApp } from '../../core/constants/common';
 import { googleLoginActions } from '../../core/redux/login-google-slice';
 import { userActions } from '../../core/redux/user-slice';
 import { ResponseGoogleLogin } from '../../core/types/base';
@@ -28,12 +30,7 @@ import { UserGoogleInfo } from '../../core/types/user';
 import { initialGoogleLoginDataState, initialUserGoogleInfoState } from '../../core/utils/ObjectUtils';
 import AlertBar from '../../shared-components/alert/alert-bar';
 import LoginModal from '../../shared-components/modal/login-modal';
-import './login.scss';
-import Paper from '@mui/material/Paper';
-import InputBase from '@mui/material/InputBase';
-import Divider from '@mui/material/Divider';
-import SearchIcon from '@mui/icons-material/Search';
-import DirectionsIcon from '@mui/icons-material/Directions';
+import './home.scss';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 
@@ -46,6 +43,14 @@ export default function HomeComponent() {
     const [messageGoogleLogin, setMessageGoogleLogin] = useState<string>('');
     const [isOpenAlert, setIsOpenAlert] = useState<boolean>(false);
     const [searchInputValue, setSearchInputValue] = useState<string>('');
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.pathname === UrlFeApp.DEFAULT) {
+            navigate(UrlFeApp.CONTENT);
+        }
+    }, [location, location.pathname]);
 
     const handleSearchInput = () => {
         console.log({ searchInputValue });
@@ -112,7 +117,7 @@ export default function HomeComponent() {
 
     return (
         <>
-            <AppBar position="static">
+            <AppBar position="sticky">
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
                         <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -277,11 +282,7 @@ export default function HomeComponent() {
                     </Toolbar>
                 </Container>
             </AppBar>
-            <div className="login-wrapper">
-                <div className="login-form-wrapper">
-                    <Outlet />
-                </div>
-            </div>
+            <Outlet />
             <LoginModal
                 callBackSuccessLogin={handleLoginSuccess}
                 callBackErrorLogin={handleLoginFailed}
