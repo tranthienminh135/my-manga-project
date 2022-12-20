@@ -4,7 +4,6 @@ import { RouteObject, useRoutes } from 'react-router-dom';
 import HomeComponent from '../ui/home/home-component';
 
 const DashBoard = lazy(() => import('../ui/dashboard/dashboard'));
-const Company = lazy(() => import('../ui/content/content'));
 
 const listRouter: RouteObject[] = [
     {
@@ -14,10 +13,6 @@ const listRouter: RouteObject[] = [
             {
                 path: UrlFeApp.DASH_BOARD,
                 element: <DashBoard />,
-            },
-            {
-                path: UrlFeApp.CONTENT,
-                element: <Company />,
             },
         ],
     },

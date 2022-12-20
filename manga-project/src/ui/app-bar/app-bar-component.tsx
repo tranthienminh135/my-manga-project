@@ -27,10 +27,11 @@ import { googleLoginActions } from '../../core/redux/login-google-slice';
 import { getUserGoogleInfo, userActions } from '../../core/redux/user-slice';
 import { ResponseGoogleLogin } from '../../core/types/base';
 import { UserGoogleInfo } from '../../core/types/user';
+import { YoutubePlaylists } from '../../core/types/youtube';
 import { initialGoogleLoginDataState, initialState } from '../../core/utils/ObjectUtils';
 import AlertBar from '../../shared-components/alert/alert-bar';
 import LoginModal from '../../shared-components/modal/login-modal';
-import './home.scss';
+import './app-bar.scss';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 
@@ -45,9 +46,6 @@ export default function HomeComponent() {
     const [searchInputValue, setSearchInputValue] = useState<string>('');
     const navigate = useNavigate();
     const location = useLocation();
-    const ui = useSelector(getUserGoogleInfo);
-
-    console.log({ ui });
 
     useEffect(() => {
         if (location.pathname === UrlFeApp.DEFAULT) {
@@ -72,6 +70,7 @@ export default function HomeComponent() {
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
+        navigate(UrlFeApp.DASH_BOARD);
     };
 
     const handleCloseUserMenu = () => {
