@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ResponseGoogleLogin } from '../types/base';
-import { initialGoogleLoginDataState } from '../utils/ObjectUtils';
+import { ResponseGoogleLogin } from '../../types/base';
+import { initialGoogleLoginDataState } from '../../utils/ObjectUtils';
 
 export const googleLoginData = createSlice({
     name: 'googleLoginData',

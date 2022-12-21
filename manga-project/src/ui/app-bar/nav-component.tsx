@@ -22,12 +22,15 @@ import jwtDecode from 'jwt-decode';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { UrlFeApp } from '../../core/constants/common';
-import { getGoogleLoginData, googleLoginActions } from '../../core/redux/login-google-slice';
-import { getUserGoogleInfo, userActions } from '../../core/redux/user-slice';
+import { UrlFeApp, YOUTUBE } from '../../core/constants/common';
+import { googleLoginActions } from '../../core/redux/slice/login-google-slice';
+import { getPlaylistsData, playlistsActions } from '../../core/redux/slice/playlists-slice';
+import { userActions } from '../../core/redux/slice/user-slice';
 import { ResponseGoogleLogin } from '../../core/types/base';
 import { UserGoogleInfo } from '../../core/types/user';
+import { YoutubePlaylists } from '../../core/types/youtube-playlists';
 import { initialGoogleLoginDataState, initialUserGoogleInfoState } from '../../core/utils/ObjectUtils';
+import { getYoutubePlaylists } from '../../services/youtube-service';
 import AlertBar from '../../shared-components/alert/alert-bar';
 import LoginModal from '../../shared-components/modal/login-modal';
 import './app-bar.scss';
@@ -45,6 +48,25 @@ export default function NavComponent() {
     const [searchInputValue, setSearchInputValue] = useState<string>('');
     const navigate = useNavigate();
     const location = useLocation();
+    const yt = useSelector(getPlaylistsData);
+
+    console.log({ yt });
+
+    useEffect(() => {
+        const requestData = {
+            contentDetails: YOUTUBE.CONTENT_DETAILS,
+            id: YOUTUBE.ID,
+            snippet: YOUTUBE.SNIPPET,
+            localizations: YOUTUBE.LOCALIZATIONS,
+            maxResults: 1000,
+            status: YOUTUBE.STATUS,
+            channelId: YOUTUBE.CHANNEL_ID,
+            key: YOUTUBE.KEY,
+        };
+        getYoutubePlaylists(requestData).then((res: YoutubePlaylists) => {
+            dispatch(playlistsActions.setPlaylistsData(res));
+        });
+    }, []);
 
     useEffect(() => {
         if (location.pathname === UrlFeApp.DEFAULT) {

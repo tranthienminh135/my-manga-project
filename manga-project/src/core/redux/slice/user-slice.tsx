@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { UserGoogleInfo } from '../types/user';
-import { initialUserGoogleInfoState } from '../utils/ObjectUtils';
+import { UserGoogleInfo } from '../../types/user';
+import { initialUserGoogleInfoState } from '../../utils/ObjectUtils';
 
-export const userInfoSlice = createSlice({
+export const userInfoData = createSlice({
     name: 'user',
     initialState: initialUserGoogleInfoState,
     reducers: {
@@ -12,8 +12,8 @@ export const userInfoSlice = createSlice({
     },
 });
 
-export const userActions = userInfoSlice.actions;
+export const userActions = userInfoData.actions;
 
 export const getUserGoogleInfo = (state: any) => state.user.userGoogleInfo;
 
-export default userInfoSlice.reducer;
+export default userInfoData.reducer;
