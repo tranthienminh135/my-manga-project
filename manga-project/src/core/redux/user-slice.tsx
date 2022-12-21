@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UserGoogleInfo } from '../types/user';
-import { initialState } from '../utils/ObjectUtils';
+import { initialUserGoogleInfoState } from '../utils/ObjectUtils';
 
 export const userInfoSlice = createSlice({
     name: 'user',
-    initialState,
+    initialState: initialUserGoogleInfoState,
     reducers: {
         setUserInfo(state, action: PayloadAction<UserGoogleInfo>) {
             state.userGoogleInfo = action.payload;

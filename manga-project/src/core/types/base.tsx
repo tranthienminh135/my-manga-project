@@ -1,14 +1,11 @@
-export interface DataResSuccess<T> {
-    code: string;
-    message: string;
-    data: T | null | undefined;
-    status: 'ERROR' | 'OK';
-}
-
 export type ResponseGoogleLogin = {
     clientId: string;
     credential: string;
     select_by: string;
+};
+
+export type InitialResponseGoogle = {
+    responseGoogle: ResponseGoogleLogin;
 };
 
 export type LoginModalProps = {

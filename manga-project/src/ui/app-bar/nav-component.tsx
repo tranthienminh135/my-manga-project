@@ -23,23 +23,22 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { UrlFeApp } from '../../core/constants/common';
-import { googleLoginActions } from '../../core/redux/login-google-slice';
+import { getGoogleLoginData, googleLoginActions } from '../../core/redux/login-google-slice';
 import { getUserGoogleInfo, userActions } from '../../core/redux/user-slice';
 import { ResponseGoogleLogin } from '../../core/types/base';
 import { UserGoogleInfo } from '../../core/types/user';
-import { YoutubePlaylists } from '../../core/types/youtube';
-import { initialGoogleLoginDataState, initialState } from '../../core/utils/ObjectUtils';
+import { initialGoogleLoginDataState, initialUserGoogleInfoState } from '../../core/utils/ObjectUtils';
 import AlertBar from '../../shared-components/alert/alert-bar';
 import LoginModal from '../../shared-components/modal/login-modal';
 import './app-bar.scss';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 
-export default function HomeComponent() {
+export default function NavComponent() {
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
     const dispatch = useDispatch();
-    const [userInfo, setUserInfo] = useState<UserGoogleInfo>(initialState.userGoogleInfo);
+    const [userInfo, setUserInfo] = useState<UserGoogleInfo>(initialUserGoogleInfoState.userGoogleInfo);
     const [isOpenLoginModal, setIsOpenLoginModal] = useState<boolean>(false);
     const [messageGoogleLogin, setMessageGoogleLogin] = useState<string>('');
     const [isOpenAlert, setIsOpenAlert] = useState<boolean>(false);
@@ -98,9 +97,9 @@ export default function HomeComponent() {
 
     const handleGoogleLogout = () => {
         googleLogout();
-        dispatch(googleLoginActions.setGoogleLoginData(initialGoogleLoginDataState));
-        dispatch(userActions.setUserInfo(initialState.userGoogleInfo));
-        setUserInfo(initialState.userGoogleInfo);
+        dispatch(googleLoginActions.setGoogleLoginData(initialGoogleLoginDataState.responseGoogle));
+        dispatch(userActions.setUserInfo(initialUserGoogleInfoState.userGoogleInfo));
+        setUserInfo(initialUserGoogleInfoState.userGoogleInfo);
         setMessageGoogleLogin('Đăng xuất thành công!');
         setIsOpenAlert(true);
     };

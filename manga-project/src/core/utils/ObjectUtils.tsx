@@ -1,5 +1,5 @@
-import { ResponseGoogleLogin } from '../types/base';
-import { InitialUserInfo, UserGoogleInfo } from '../types/user';
+import { InitialResponseGoogle, ResponseGoogleLogin } from '../types/base';
+import { InitialUserInfo } from '../types/user';
 
 export const isEmpty = (object: any) => {
     if (object === undefined || object === null) {
@@ -9,7 +9,7 @@ export const isEmpty = (object: any) => {
     return true;
 };
 
-export const initialState: InitialUserInfo = {
+export const initialUserGoogleInfoState: InitialUserInfo = {
     userGoogleInfo: {
         aud: '',
         azp: '',
@@ -28,8 +28,10 @@ export const initialState: InitialUserInfo = {
     },
 };
 
-export const initialGoogleLoginDataState: ResponseGoogleLogin = {
-    clientId: '',
-    credential: '',
-    select_by: '',
+export const initialGoogleLoginDataState: InitialResponseGoogle = {
+    responseGoogle: {
+        clientId: '',
+        credential: '',
+        select_by: '',
+    },
 };

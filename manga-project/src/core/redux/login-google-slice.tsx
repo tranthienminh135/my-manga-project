@@ -7,13 +7,13 @@ export const googleLoginData = createSlice({
     initialState: initialGoogleLoginDataState,
     reducers: {
         setGoogleLoginData(state, action: PayloadAction<ResponseGoogleLogin>) {
-            state = action.payload;
+            state.responseGoogle = action.payload;
         },
     },
 });
 
 export const googleLoginActions = googleLoginData.actions;
 
-export const getGoogleLoginData = (state: any) => state;
+export const getGoogleLoginData = (state: any) => state.googleLoginData.responseGoogle;
 
 export default googleLoginData.reducer;
