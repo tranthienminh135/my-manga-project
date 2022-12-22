@@ -1,4 +1,5 @@
 import { InitialResponseGoogle } from '../types/base';
+import { initialPlaylistsDetail } from '../types/playlists-detail';
 import { InitialUserInfo } from '../types/user';
 import { InitialYoutubePlaylistItems } from '../types/youtube-playlist-items';
 import { InitialYoutubePlaylists } from '../types/youtube-playlists';
@@ -171,4 +172,59 @@ export const initialPlaylistItemsDataState: InitialYoutubePlaylistItems = {
             },
         },
     ],
+};
+
+export const initialPlaylistsDetailState: initialPlaylistsDetail = {
+    playlistDetail: {
+        kind: '',
+        tag: '',
+        id: '',
+        snippet: {
+            publishedAt: '',
+            channelId: '',
+            title: '',
+            description: '',
+            thumbnails: {
+                default: {
+                    url: '',
+                    width: -1,
+                    height: -1,
+                },
+                medium: {
+                    url: '',
+                    width: -1,
+                    height: -1,
+                },
+                high: {
+                    url: '',
+                    width: -1,
+                    height: -1,
+                },
+                standard: {
+                    url: '',
+                    width: -1,
+                    height: -1,
+                },
+                maxres: {
+                    url: '',
+                    width: -1,
+                    height: -1,
+                },
+            },
+            channelTitle: '',
+            localized: {
+                title: '',
+                description: '',
+            },
+        },
+        status: {
+            privacyStatus: '',
+        },
+        contentDetails: {
+            itemCount: -1,
+        },
+        player: {
+            embedHtml: '',
+        },
+    },
 };

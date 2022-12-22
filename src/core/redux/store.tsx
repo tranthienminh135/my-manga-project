@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import channelIdSlice from './slice/playlists-detail-slice';
 import loginGoogleSlice from './slice/login-google-slice';
 import playlistItemsSlice from './slice/playlist-items-slice';
 import playlistsSlice from './slice/playlists-slice';
@@ -10,6 +11,7 @@ export const store = configureStore({
         googleLoginData: loginGoogleSlice,
         playlistsData: playlistsSlice,
         playlistItemsData: playlistItemsSlice,
+        playlistsDetail: channelIdSlice,
     },
 });
 

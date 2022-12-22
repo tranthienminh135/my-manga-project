@@ -1,32 +1,27 @@
 import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { getPlaylistItemsData } from '../../core/redux/slice/playlist-items-slice';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { UrlFeApp } from '../../core/constants/common';
+import { playlistsDetailActions } from '../../core/redux/slice/playlists-detail-slice';
 import { getPlaylistsData } from '../../core/redux/slice/playlists-slice';
+import { YoutubePlaylistsItem } from '../../core/types/youtube-playlists';
 
 export default function Home() {
     const youtubePlaylistsRedux = useSelector(getPlaylistsData);
-    const youtubePlaylistItemRedux = useSelector(getPlaylistItemsData);
     const [youtubePlaylistsState, setYoutubePlaylistsState] = useState<any>();
-    const [youtubePlaylistItemState, setYoutubePlaylistItemState] = useState<any>();
-
-    useEffect(() => {
-        if (youtubePlaylistsState && youtubePlaylistItemState) {
-            // console.log({ youtubePlaylistsState, youtubePlaylistItemState });
-        }
-    }, [youtubePlaylistsState, youtubePlaylistItemState]);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (youtubePlaylistsRedux && youtubePlaylistsRedux.items.length > 0) {
             setYoutubePlaylistsState(youtubePlaylistsRedux);
-            if (youtubePlaylistItemRedux && youtubePlaylistItemRedux.length > 0) {
-                setYoutubePlaylistItemState(youtubePlaylistItemRedux);
-            }
         }
-    }, [youtubePlaylistsRedux, youtubePlaylistItemRedux]);
+    }, [youtubePlaylistsRedux]);
 
-    const handleClickLink = (channelId: string) => {
-        console.log(channelId);
+    const handleClickLink = (playlistsDetail: YoutubePlaylistsItem) => {
+        dispatch(playlistsDetailActions.setPlaylistsDetail(playlistsDetail));
+        navigate(UrlFeApp.CONTENT);
     };
 
     return (
@@ -35,11 +30,11 @@ export default function Home() {
                 {youtubePlaylistsState &&
                     youtubePlaylistsState.items &&
                     youtubePlaylistsState.items.length > 0 &&
-                    youtubePlaylistsState.items.map((data: any, index: number) => {
+                    youtubePlaylistsState.items.map((data: YoutubePlaylistsItem, index: number) => {
                         return (
                             <li key={data.id}>
-                                {index + 1} -{' '}
-                                <Button onClick={() => handleClickLink(data.id)} color="secondary">
+                                {index + 1} -
+                                <Button onClick={() => handleClickLink(data)} color="secondary">
                                     {data.snippet.title}
                                 </Button>
                             </li>
