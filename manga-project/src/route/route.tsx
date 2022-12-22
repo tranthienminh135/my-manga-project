@@ -1,23 +1,23 @@
 import { lazy } from 'react';
 import { UrlFeApp } from '../core/constants/common';
 import { RouteObject, useRoutes } from 'react-router-dom';
-import HomeComponent from '../ui/home/home-component';
+import NavComponent from '../ui/app-bar/nav-component';
+import Home from '../ui/home/home-component';
 
 const DashBoard = lazy(() => import('../ui/dashboard/dashboard'));
-const Company = lazy(() => import('../ui/content/content'));
 
 const listRouter: RouteObject[] = [
     {
         path: '/',
-        element: <HomeComponent />,
+        element: <NavComponent />,
         children: [
+            {
+                path: UrlFeApp.HOME,
+                element: <Home />,
+            },
             {
                 path: UrlFeApp.DASH_BOARD,
                 element: <DashBoard />,
-            },
-            {
-                path: UrlFeApp.CONTENT,
-                element: <Company />,
             },
         ],
     },

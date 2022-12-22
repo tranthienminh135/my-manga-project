@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import appSlice from './app-slice';
-import loginGoogleSlice from './login-google-slice';
-import userInfoSlice from './user-slice';
+import loginGoogleSlice from './slice/login-google-slice';
+import playlistsSlice from './slice/playlists-slice';
+import userSlice from './slice/user-slice';
 
 export const store = configureStore({
     reducer: {
-        app: appSlice,
-        user: userInfoSlice,
+        user: userSlice,
         googleLoginData: loginGoogleSlice,
+        playlistsData: playlistsSlice,
     },
 });
 

@@ -20,3 +20,7 @@ export type UserGoogleInfo = {
     sub: string;
     isAdmin: boolean;
 };
+
+export type InitialUserInfo = {
+    userGoogleInfo: UserGoogleInfo;
+};

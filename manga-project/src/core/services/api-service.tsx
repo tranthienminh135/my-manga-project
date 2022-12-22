@@ -1,30 +1,11 @@
 import axios from 'axios';
-import { CharacterConstants } from '../constants/common';
+import { stringify } from 'qs';
 
-export const get = (url:string, param:any) => {
-    axios.get(url, param).then(res => {
-        return res;
-    }).catch(error => console.log(error));
-}
-
-export const post = (url:string, data: any) => {
-    axios.post(url, data)
-    .then(res => {
-        return res;
-    }).catch(error => console.log(error));
-}
-
-export const put = (url:string, data: any) => {
-    axios.put(url, data)
-    .then(res => {
-        return res;
-    }).catch(error => console.log(error));
-}
-
-export const deleteById = (url:string, id:number) => {
-    var urlDelete = url + CharacterConstants.SLASH + id;
-    axios.delete(urlDelete)
-    .then(res => {
-        return res;
-    }).catch(error => console.log(error));
-}
+export const apiClient = axios.create({
+    headers: {
+        'content-type': 'application/json',
+    },
+    paramsSerializer(params: any) {
+        return stringify(params);
+    },
+});
