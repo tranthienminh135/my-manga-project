@@ -125,7 +125,7 @@ export default function NavComponent() {
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
-        navigate(UrlFeApp.DASH_BOARD);
+        navigate(UrlFeApp.HOME);
     };
 
     const handleCloseUserMenu = () => {
