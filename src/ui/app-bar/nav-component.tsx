@@ -20,11 +20,11 @@ import Typography from '@mui/material/Typography';
 import { googleLogout } from '@react-oauth/google';
 import jwtDecode from 'jwt-decode';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { ALERT_INFO, PERMISSION, UrlFeApp, YOUTUBE_PARAMS } from '../../core/constants/common';
 import { googleLoginActions } from '../../core/redux/slice/login-google-slice';
-import { getPlaylistsData, playlistsActions } from '../../core/redux/slice/playlists-slice';
+import { playlistsActions } from '../../core/redux/slice/playlists-slice';
 import { userActions } from '../../core/redux/slice/user-slice';
 import { ResponseGoogleLogin } from '../../core/types/base';
 import { UserGoogleInfo } from '../../core/types/user';
@@ -48,7 +48,6 @@ export default function NavComponent() {
     const [searchInputValue, setSearchInputValue] = useState<string>('');
     const navigate = useNavigate();
     const location = useLocation();
-    const yt = useSelector(getPlaylistsData);
 
     useEffect(() => {
         const requestData = {
@@ -63,15 +62,14 @@ export default function NavComponent() {
         };
         getYoutubePlaylists(requestData).then((res: YoutubePlaylists) => {
             dispatch(playlistsActions.setPlaylistsData(res));
-            console.log(res);
         });
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         if (location.pathname === UrlFeApp.DEFAULT) {
             navigate(UrlFeApp.HOME);
         }
-    }, [location, location.pathname]);
+    }, [location, location.pathname, navigate]);
 
     const handleSearchInput = () => {
         console.log({ searchInputValue });
