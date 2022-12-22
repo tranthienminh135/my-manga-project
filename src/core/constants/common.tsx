@@ -8,9 +8,19 @@ export const UrlFeApp = {
     HOME: '/home',
 };
 
-export const YOUTUBE_PARAMS = {
-    CHANNEL_ID: process.env.REACT_APP_YOUTUBE_CHANNEL_ID,
-    KEY: process.env.REACT_APP_YOUTUBE_KEY,
+export type YoutubeParams = {
+    CHANNEL_ID: string;
+    KEY: Array<string>;
+    STATUS: string;
+    LOCALIZATIONS: string;
+    SNIPPET: string;
+    ID: string;
+    CONTENT_DETAILS: string;
+};
+
+export const YOUTUBE_PARAMS: YoutubeParams = {
+    CHANNEL_ID: process.env.REACT_APP_YOUTUBE_CHANNEL_ID as string,
+    KEY: process.env.REACT_APP_YOUTUBE_KEY?.split(COMMON.COMMA) as Array<string>,
     STATUS: 'status',
     LOCALIZATIONS: 'localizations',
     SNIPPET: 'snippet',
@@ -20,6 +30,7 @@ export const YOUTUBE_PARAMS = {
 
 export const API = {
     YOUTUBE_PLAYLISTS: `https://youtube.googleapis.com/youtube/v3/playlists`,
+    YOUTUBE_PLAYLIST_ITEMS: `https://youtube.googleapis.com/youtube/v3/playlistItems`,
 };
 
 export const PERMISSION = {

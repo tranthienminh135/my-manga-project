@@ -24,7 +24,7 @@ export default function AlertBar(props: AlertBarProps) {
                 open={isOpen}
                 autoHideDuration={2000}
                 onClose={handleClose}
-                anchorOrigin={{ horizontal: 'center', vertical: 'top' }}
+                anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
             >
                 <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
                     {message}

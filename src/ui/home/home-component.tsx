@@ -13,12 +13,16 @@ export default function Home() {
     }, [youtubePlaylistsRedux]);
 
     return (
-        <div>
+        <div style={{ overflow: 'auto', height: '500px' }}>
             <ul>
                 {youtubePlaylistsState &&
                     youtubePlaylistsState.length > 0 &&
-                    youtubePlaylistsState.map((data: any) => {
-                        return <li key={data.id}>{data.snippet.title}</li>;
+                    youtubePlaylistsState.map((data: any, index: number) => {
+                        return (
+                            <li key={data.id}>
+                                {index + 1} - {data.snippet.title}
+                            </li>
+                        );
                     })}
             </ul>
         </div>

@@ -20,22 +20,25 @@ import Typography from '@mui/material/Typography';
 import { googleLogout } from '@react-oauth/google';
 import jwtDecode from 'jwt-decode';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { ALERT_INFO, PERMISSION, UrlFeApp, YOUTUBE_PARAMS } from '../../core/constants/common';
 import { googleLoginActions } from '../../core/redux/slice/login-google-slice';
-import { playlistsActions } from '../../core/redux/slice/playlists-slice';
+import { getPlaylistsData, playlistsActions } from '../../core/redux/slice/playlists-slice';
 import { userActions } from '../../core/redux/slice/user-slice';
 import { ResponseGoogleLogin } from '../../core/types/base';
 import { UserGoogleInfo } from '../../core/types/user';
 import { YoutubePlaylists } from '../../core/types/youtube-playlists';
+import { YoutubePlaylistItems } from '../../core/types/youtube-playlist-items';
 import { initialGoogleLoginDataState, initialUserGoogleInfoState } from '../../core/utils/ObjectUtils';
-import { getYoutubePlaylists } from '../../services/youtube-service';
+import { getYoutubePlaylistItems, getYoutubePlaylists } from '../../services/youtube-service';
 import AlertBar from '../../shared-components/alert/alert-bar';
 import LoginModal from '../../shared-components/modal/login-modal';
 import './app-bar.scss';
 
 const pages = ['Home', 'Pricing', 'Blog'];
+
+const randomNumber = Math.floor(Math.random() * YOUTUBE_PARAMS.KEY.length);
 
 export default function NavComponent() {
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -48,20 +51,48 @@ export default function NavComponent() {
     const [searchInputValue, setSearchInputValue] = useState<string>('');
     const navigate = useNavigate();
     const location = useLocation();
+    const youtubePlaylistItemRedux: YoutubePlaylists = useSelector(getPlaylistsData);
 
     useEffect(() => {
-        const requestData = {
+        const filterAllYoutubePlaylistItems = async (params: any) => {
+            const youtubePlaylistItemsResponse: Array<YoutubePlaylistItems> = await Promise.all(
+                params.items.map(async (data: any) => {
+                    const requestYoutubePlaylistItemData = {
+                        contentDetails: YOUTUBE_PARAMS.CONTENT_DETAILS,
+                        id: YOUTUBE_PARAMS.ID,
+                        snippet: YOUTUBE_PARAMS.SNIPPET,
+                        maxResults: 50,
+                        status: YOUTUBE_PARAMS.STATUS,
+                        playlistId: data.id,
+                        key: YOUTUBE_PARAMS.KEY[randomNumber],
+                    };
+                    return await fetchGetYoutubePlaylistItems(requestYoutubePlaylistItemData);
+                }),
+            );
+            console.log(youtubePlaylistItemsResponse);
+        };
+        if (youtubePlaylistItemRedux.items.length > 1) {
+            filterAllYoutubePlaylistItems(youtubePlaylistItemRedux);
+        }
+    }, [youtubePlaylistItemRedux]);
+
+    const fetchGetYoutubePlaylistItems = async (params: any) => {
+        return await getYoutubePlaylistItems(params);
+    };
+
+    useEffect(() => {
+        const requestYoutubePlaylistsData = {
             contentDetails: YOUTUBE_PARAMS.CONTENT_DETAILS,
             id: YOUTUBE_PARAMS.ID,
             snippet: YOUTUBE_PARAMS.SNIPPET,
             localizations: YOUTUBE_PARAMS.LOCALIZATIONS,
-            maxResults: 1000,
+            maxResults: 50,
             status: YOUTUBE_PARAMS.STATUS,
             channelId: YOUTUBE_PARAMS.CHANNEL_ID,
-            key: YOUTUBE_PARAMS.KEY,
+            key: YOUTUBE_PARAMS.KEY[randomNumber],
         };
-        getYoutubePlaylists(requestData).then((res: YoutubePlaylists) => {
-            dispatch(playlistsActions.setPlaylistsData(res));
+        getYoutubePlaylists(requestYoutubePlaylistsData).then((youtubePlaylistsResponse: YoutubePlaylists) => {
+            dispatch(playlistsActions.setPlaylistsData(youtubePlaylistsResponse));
         });
     }, [dispatch]);
 

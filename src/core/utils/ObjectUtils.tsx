@@ -1,5 +1,6 @@
 import { InitialResponseGoogle } from '../types/base';
 import { InitialUserInfo } from '../types/user';
+import { InitialYoutubePlaylistItems } from '../types/youtube-playlist-items';
 import { InitialYoutubePlaylists } from '../types/youtube-playlists';
 
 export const isEmpty = (object: any) => {
@@ -101,4 +102,73 @@ export const initialPlaylistsDataState: InitialYoutubePlaylists = {
             },
         ],
     },
+};
+
+export const initialPlaylistItemsDataState: InitialYoutubePlaylistItems = {
+    playlistItemsData: [
+        {
+            kind: '',
+            etag: '',
+            items: [
+                {
+                    kind: '',
+                    etag: '',
+                    id: '',
+                    snippet: {
+                        publishedAt: '',
+                        channelId: '',
+                        title: '',
+                        description: '',
+                        thumbnails: {
+                            default: {
+                                url: '',
+                                width: -1,
+                                height: -1,
+                            },
+                            medium: {
+                                url: '',
+                                width: -1,
+                                height: -1,
+                            },
+                            high: {
+                                url: '',
+                                width: -1,
+                                height: -1,
+                            },
+                            standard: {
+                                url: '',
+                                width: -1,
+                                height: -1,
+                            },
+                            maxres: {
+                                url: '',
+                                width: -1,
+                                height: -1,
+                            },
+                        },
+                        channelTitle: '',
+                        playlistId: '',
+                        position: -1,
+                        resourceId: {
+                            kind: '',
+                            videoId: '',
+                        },
+                        videoOwnerChannelTitle: '',
+                        videoOwnerChannelId: '',
+                    },
+                    contentDetails: {
+                        videoId: '',
+                        videoPublishedAt: '',
+                    },
+                    status: {
+                        privacyStatus: '',
+                    },
+                },
+            ],
+            pageInfo: {
+                totalResults: -1,
+                resultsPerPage: -1,
+            },
+        },
+    ],
 };

@@ -1,15 +1,15 @@
-export type YoutubePlaylistsItemThumbnailsItem = {
+export type YoutubePlaylistsItemThumbnailItems = {
     url: string;
     width: number;
     height: number;
 };
 
 export type YoutubePlaylistsItemThumbnails = {
-    default: YoutubePlaylistsItemThumbnailsItem;
-    medium: YoutubePlaylistsItemThumbnailsItem;
-    high: YoutubePlaylistsItemThumbnailsItem;
-    standard: YoutubePlaylistsItemThumbnailsItem;
-    maxres: YoutubePlaylistsItemThumbnailsItem;
+    default: YoutubePlaylistsItemThumbnailItems;
+    medium: YoutubePlaylistsItemThumbnailItems;
+    high: YoutubePlaylistsItemThumbnailItems;
+    standard: YoutubePlaylistsItemThumbnailItems;
+    maxres: YoutubePlaylistsItemThumbnailItems;
 };
 
 export type YoutubePlaylistsItemSnippet = {

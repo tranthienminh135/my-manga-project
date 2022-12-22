@@ -21,7 +21,7 @@ export default function Login(props: LoginPropsType) {
             onSuccess={handleLoginSuccess}
             onError={handleLoginError}
             useOneTap
-            auto_select={true}
+            auto_select
         />
     );
 }
