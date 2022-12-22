@@ -100,7 +100,9 @@ export default function NavComponent() {
             dispatch(googleLoginActions.setGoogleLoginData(successData));
             if (successData.credential) {
                 const respData: UserGoogleInfo = jwtDecode(successData.credential);
-                respData.isAdmin = respData.email === PERMISSION.ADMIN_EMAIL ? true : false;
+                respData.isAdmin = PERMISSION.ADMIN_EMAIL?.some((data: string) => data === respData.email)
+                    ? true
+                    : false;
                 dispatch(userActions.setUserInfo(respData));
                 setUserInfo(respData);
                 setAnchorElUser(null);

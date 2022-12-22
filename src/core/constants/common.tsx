@@ -1,3 +1,7 @@
+export const COMMON = {
+    COMMA: ',',
+};
+
 export const UrlFeApp = {
     DEFAULT: '/',
     DASH_BOARD: '/dashboard',
@@ -19,7 +23,7 @@ export const API = {
 };
 
 export const PERMISSION = {
-    ADMIN_EMAIL: process.env.REACT_APP_YOUTUBE_ADMIN_EMAIL,
+    ADMIN_EMAIL: process.env.REACT_APP_YOUTUBE_ADMIN_EMAIL?.split(COMMON.COMMA),
 };
 
 export const ALERT_INFO = {
