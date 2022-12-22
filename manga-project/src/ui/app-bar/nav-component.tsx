@@ -22,7 +22,7 @@ import jwtDecode from 'jwt-decode';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { UrlFeApp, YOUTUBE } from '../../core/constants/common';
+import { ALERT_INFO, PERMISSION, UrlFeApp, YOUTUBE_PARAMS } from '../../core/constants/common';
 import { googleLoginActions } from '../../core/redux/slice/login-google-slice';
 import { getPlaylistsData, playlistsActions } from '../../core/redux/slice/playlists-slice';
 import { userActions } from '../../core/redux/slice/user-slice';
@@ -35,7 +35,7 @@ import AlertBar from '../../shared-components/alert/alert-bar';
 import LoginModal from '../../shared-components/modal/login-modal';
 import './app-bar.scss';
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = ['Home', 'Pricing', 'Blog'];
 
 export default function NavComponent() {
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -50,27 +50,26 @@ export default function NavComponent() {
     const location = useLocation();
     const yt = useSelector(getPlaylistsData);
 
-    console.log({ yt });
-
     useEffect(() => {
         const requestData = {
-            contentDetails: YOUTUBE.CONTENT_DETAILS,
-            id: YOUTUBE.ID,
-            snippet: YOUTUBE.SNIPPET,
-            localizations: YOUTUBE.LOCALIZATIONS,
+            contentDetails: YOUTUBE_PARAMS.CONTENT_DETAILS,
+            id: YOUTUBE_PARAMS.ID,
+            snippet: YOUTUBE_PARAMS.SNIPPET,
+            localizations: YOUTUBE_PARAMS.LOCALIZATIONS,
             maxResults: 1000,
-            status: YOUTUBE.STATUS,
-            channelId: YOUTUBE.CHANNEL_ID,
-            key: YOUTUBE.KEY,
+            status: YOUTUBE_PARAMS.STATUS,
+            channelId: YOUTUBE_PARAMS.CHANNEL_ID,
+            key: YOUTUBE_PARAMS.KEY,
         };
         getYoutubePlaylists(requestData).then((res: YoutubePlaylists) => {
             dispatch(playlistsActions.setPlaylistsData(res));
+            console.log(res);
         });
     }, []);
 
     useEffect(() => {
         if (location.pathname === UrlFeApp.DEFAULT) {
-            navigate(UrlFeApp.DASH_BOARD);
+            navigate(UrlFeApp.HOME);
         }
     }, [location, location.pathname]);
 
@@ -103,18 +102,18 @@ export default function NavComponent() {
             dispatch(googleLoginActions.setGoogleLoginData(successData));
             if (successData.credential) {
                 const respData: UserGoogleInfo = jwtDecode(successData.credential);
-                respData.isAdmin = respData.email === 'tranthienminh135@gmail.com' ? true : false;
+                respData.isAdmin = respData.email === PERMISSION.ADMIN_EMAIL ? true : false;
                 dispatch(userActions.setUserInfo(respData));
                 setUserInfo(respData);
                 setAnchorElUser(null);
-                setMessageGoogleLogin('Đăng nhập thành công!');
+                setMessageGoogleLogin(ALERT_INFO.LOGIN.SUCCESS);
                 setIsOpenAlert(true);
             }
         }
     };
 
     const handleLoginFailed = () => {
-        setMessageGoogleLogin('Đăng nhập thất bại');
+        setMessageGoogleLogin(ALERT_INFO.LOGIN.FAILED);
     };
 
     const handleGoogleLogout = () => {
@@ -122,7 +121,7 @@ export default function NavComponent() {
         dispatch(googleLoginActions.setGoogleLoginData(initialGoogleLoginDataState.responseGoogle));
         dispatch(userActions.setUserInfo(initialUserGoogleInfoState.userGoogleInfo));
         setUserInfo(initialUserGoogleInfoState.userGoogleInfo);
-        setMessageGoogleLogin('Đăng xuất thành công!');
+        setMessageGoogleLogin(ALERT_INFO.LOGOUT.SUCCESS);
         setIsOpenAlert(true);
     };
 
