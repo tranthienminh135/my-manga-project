@@ -1,11 +1,12 @@
 export const UrlFeApp = {
     DEFAULT: '/',
     DASH_BOARD: '/dashboard',
+    HOME: '/home',
 };
 
-export const YOUTUBE = {
-    CHANNEL_ID: 'UC_x5XG1OV2P6uZZ5FSM9Ttw',
-    KEY: 'AIzaSyD3UkTdapXZ74MBlamnPzJpMQL75Et4qZw',
+export const YOUTUBE_PARAMS = {
+    CHANNEL_ID: process.env.REACT_APP_YOUTUBE_CHANNEL_ID,
+    KEY: process.env.REACT_APP_YOUTUBE_KEY,
     STATUS: 'status',
     LOCALIZATIONS: 'localizations',
     SNIPPET: 'snippet',
@@ -14,6 +15,20 @@ export const YOUTUBE = {
 };
 
 export const API = {
-    YOUTUBE: 'https://youtube.googleapis.com/youtube',
-    YOUTUBE_PLAYLISTS: `${YOUTUBE}/v3/playlists`,
+    YOUTUBE_PLAYLISTS: `https://youtube.googleapis.com/youtube/v3/playlists`,
+};
+
+export const PERMISSION = {
+    ADMIN_EMAIL: process.env.REACT_APP_YOUTUBE_ADMIN_EMAIL,
+};
+
+export const ALERT_INFO = {
+    LOGIN: {
+        SUCCESS: 'Đăng nhập thành công!',
+        FAILED: 'Đăng nhập thất bại!',
+    },
+    LOGOUT: {
+        SUCCESS: 'Đăng xuất thành công!',
+        FAILED: 'Đăng xuất thất bại!',
+    },
 };
