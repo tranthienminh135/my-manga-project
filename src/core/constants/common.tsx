@@ -1,25 +1,34 @@
+import { YoutubeParams } from '../types/youtube';
+
 export const COMMON = {
     COMMA: ',',
+};
+
+export const ERROR_CODE = {
+    ERROR_403: 403,
 };
 
 export const UrlFeApp = {
     DEFAULT: '/',
     DASH_BOARD: '/dashboard',
     HOME: '/home',
+    CONTENT: '/content',
 };
 
-export const YOUTUBE_PARAMS = {
-    CHANNEL_ID: process.env.REACT_APP_YOUTUBE_CHANNEL_ID,
-    KEY: process.env.REACT_APP_YOUTUBE_KEY,
+export const YOUTUBE_PARAMS: YoutubeParams = {
+    CHANNEL_ID: process.env.REACT_APP_YOUTUBE_CHANNEL_ID as string,
+    KEY: process.env.REACT_APP_YOUTUBE_KEY?.split(COMMON.COMMA) as Array<string>,
     STATUS: 'status',
     LOCALIZATIONS: 'localizations',
     SNIPPET: 'snippet',
     ID: 'id',
     CONTENT_DETAILS: 'contentDetails',
+    MAX_RESULTS: 50,
 };
 
 export const API = {
     YOUTUBE_PLAYLISTS: `https://youtube.googleapis.com/youtube/v3/playlists`,
+    YOUTUBE_PLAYLIST_ITEMS: `https://youtube.googleapis.com/youtube/v3/playlistItems`,
 };
 
 export const PERMISSION = {
