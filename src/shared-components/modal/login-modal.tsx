@@ -1,9 +1,8 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Slide } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
 import { forwardRef, useEffect, useState } from 'react';
 import { LoginModalProps, ResponseGoogleLogin } from '../../core/types/base';
 import Login from '../../ui/login/google-login';
-import AlertBar from '../alert/alert-bar';
 
 const Transition = forwardRef(function Transition(
     props: TransitionProps & {
