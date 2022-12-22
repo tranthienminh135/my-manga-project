@@ -22,7 +22,7 @@ import jwtDecode from 'jwt-decode';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { ALERT_INFO, PERMISSION, UrlFeApp, YOUTUBE_PARAMS } from '../../core/constants/common';
+import { ALERT_INFO, ERROR_CODE, PERMISSION, UrlFeApp, YOUTUBE_PARAMS } from '../../core/constants/common';
 import { googleLoginActions } from '../../core/redux/slice/login-google-slice';
 import { getPlaylistsData, playlistsActions } from '../../core/redux/slice/playlists-slice';
 import { userActions } from '../../core/redux/slice/user-slice';
@@ -35,10 +35,9 @@ import { getYoutubePlaylistItems, getYoutubePlaylists } from '../../services/you
 import AlertBar from '../../shared-components/alert/alert-bar';
 import LoginModal from '../../shared-components/modal/login-modal';
 import './app-bar.scss';
+import { playlistItemsActions } from '../../core/redux/slice/playlist-items-slice';
 
 const pages = ['Home', 'Pricing', 'Blog'];
-
-const randomNumber = Math.floor(Math.random() * YOUTUBE_PARAMS.KEY.length);
 
 export default function NavComponent() {
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -51,17 +50,18 @@ export default function NavComponent() {
     const [searchInputValue, setSearchInputValue] = useState<string>('');
     const navigate = useNavigate();
     const location = useLocation();
-    const youtubePlaylistItemRedux: YoutubePlaylists = useSelector(getPlaylistsData);
+    const youtubePlaylistsRedux: YoutubePlaylists = useSelector(getPlaylistsData);
+    const [randomNumber, setRandomNumber] = useState<number>(Math.floor(Math.random() * YOUTUBE_PARAMS.KEY.length));
 
     useEffect(() => {
-        const filterAllYoutubePlaylistItems = async (params: any) => {
+        const filterAllYoutubePlaylistItems = async (youtubePlaylistsParam: YoutubePlaylists) => {
             const youtubePlaylistItemsResponse: Array<YoutubePlaylistItems> = await Promise.all(
-                params.items.map(async (data: any) => {
+                youtubePlaylistsParam.items.map(async (data: any) => {
                     const requestYoutubePlaylistItemData = {
                         contentDetails: YOUTUBE_PARAMS.CONTENT_DETAILS,
                         id: YOUTUBE_PARAMS.ID,
                         snippet: YOUTUBE_PARAMS.SNIPPET,
-                        maxResults: 50,
+                        maxResults: YOUTUBE_PARAMS.MAX_RESULTS,
                         status: YOUTUBE_PARAMS.STATUS,
                         playlistId: data.id,
                         key: YOUTUBE_PARAMS.KEY[randomNumber],
@@ -69,12 +69,12 @@ export default function NavComponent() {
                     return await fetchGetYoutubePlaylistItems(requestYoutubePlaylistItemData);
                 }),
             );
-            console.log(youtubePlaylistItemsResponse);
+            dispatch(playlistItemsActions.setPlaylistItemsData(youtubePlaylistItemsResponse));
         };
-        if (youtubePlaylistItemRedux.items.length > 1) {
-            filterAllYoutubePlaylistItems(youtubePlaylistItemRedux);
+        if (youtubePlaylistsRedux.items.length > 1) {
+            filterAllYoutubePlaylistItems(youtubePlaylistsRedux);
         }
-    }, [youtubePlaylistItemRedux]);
+    }, [youtubePlaylistsRedux, dispatch, randomNumber]);
 
     const fetchGetYoutubePlaylistItems = async (params: any) => {
         return await getYoutubePlaylistItems(params);
@@ -86,15 +86,21 @@ export default function NavComponent() {
             id: YOUTUBE_PARAMS.ID,
             snippet: YOUTUBE_PARAMS.SNIPPET,
             localizations: YOUTUBE_PARAMS.LOCALIZATIONS,
-            maxResults: 50,
+            maxResults: YOUTUBE_PARAMS.MAX_RESULTS,
             status: YOUTUBE_PARAMS.STATUS,
             channelId: YOUTUBE_PARAMS.CHANNEL_ID,
             key: YOUTUBE_PARAMS.KEY[randomNumber],
         };
-        getYoutubePlaylists(requestYoutubePlaylistsData).then((youtubePlaylistsResponse: YoutubePlaylists) => {
-            dispatch(playlistsActions.setPlaylistsData(youtubePlaylistsResponse));
-        });
-    }, [dispatch]);
+        getYoutubePlaylists(requestYoutubePlaylistsData)
+            .then((youtubePlaylistsResponse: YoutubePlaylists) => {
+                dispatch(playlistsActions.setPlaylistsData(youtubePlaylistsResponse));
+            })
+            .catch((err: any) => {
+                if (+err.response.status === ERROR_CODE.ERROR_403) {
+                    setRandomNumber(Math.floor(Math.random() * YOUTUBE_PARAMS.KEY.length));
+                }
+            });
+    }, [dispatch, randomNumber]);
 
     useEffect(() => {
         if (location.pathname === UrlFeApp.DEFAULT) {

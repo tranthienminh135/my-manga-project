@@ -1,21 +1,18 @@
+import { YoutubeParams } from '../types/youtube';
+
 export const COMMON = {
     COMMA: ',',
+};
+
+export const ERROR_CODE = {
+    ERROR_403: 403,
 };
 
 export const UrlFeApp = {
     DEFAULT: '/',
     DASH_BOARD: '/dashboard',
     HOME: '/home',
-};
-
-export type YoutubeParams = {
-    CHANNEL_ID: string;
-    KEY: Array<string>;
-    STATUS: string;
-    LOCALIZATIONS: string;
-    SNIPPET: string;
-    ID: string;
-    CONTENT_DETAILS: string;
+    CONTENT: '/content',
 };
 
 export const YOUTUBE_PARAMS: YoutubeParams = {
@@ -26,6 +23,7 @@ export const YOUTUBE_PARAMS: YoutubeParams = {
     SNIPPET: 'snippet',
     ID: 'id',
     CONTENT_DETAILS: 'contentDetails',
+    MAX_RESULTS: 50,
 };
 
 export const API = {

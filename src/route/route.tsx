@@ -5,6 +5,7 @@ import NavComponent from '../ui/app-bar/nav-component';
 import Home from '../ui/home/home-component';
 
 const DashBoard = lazy(() => import('../ui/dashboard/dashboard'));
+const Content = lazy(() => import('../ui/content/content-component'));
 
 const listRouter: RouteObject[] = [
     {
@@ -18,6 +19,10 @@ const listRouter: RouteObject[] = [
             {
                 path: UrlFeApp.DASH_BOARD,
                 element: <DashBoard />,
+            },
+            {
+                path: UrlFeApp.CONTENT,
+                element: <Content />,
             },
         ],
     },
