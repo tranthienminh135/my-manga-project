@@ -3,13 +3,14 @@ import { UrlFeApp } from '../core/constants/common';
 import { RouteObject, useRoutes } from 'react-router-dom';
 import NavComponent from '../ui/app-bar/nav-component';
 import Home from '../ui/home/home-component';
+import Page404NotFound from '../ui/error/page-404-component';
 
 const DashBoard = lazy(() => import('../ui/dashboard/dashboard'));
 const Content = lazy(() => import('../ui/content/content-component'));
 
 const listRouter: RouteObject[] = [
     {
-        path: '/',
+        path: UrlFeApp.DEFAULT,
         element: <NavComponent />,
         children: [
             {
@@ -25,6 +26,10 @@ const listRouter: RouteObject[] = [
                 element: <Content />,
             },
         ],
+    },
+    {
+        path: UrlFeApp.ALL,
+        element: <Page404NotFound />,
     },
 ];
 export default function RenderRouter() {

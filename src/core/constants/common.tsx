@@ -10,6 +10,7 @@ export const ERROR_CODE = {
 
 export const UrlFeApp = {
     DEFAULT: '/',
+    ALL: '/*',
     DASH_BOARD: '/dashboard',
     HOME: '/home',
     CONTENT: '/content',
