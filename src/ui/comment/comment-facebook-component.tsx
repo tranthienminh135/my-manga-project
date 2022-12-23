@@ -7,12 +7,7 @@ export type CommentFacebookProps = {
 export default function CommentFacebook(props: CommentFacebookProps) {
     const { currentHref } = props;
 
-    useEffect(() => {
-        const dom: any = window;
-        if (dom.FB) {
-            dom.FB.XFBML.parse();
-        }
-    }, []);
+    console.log(currentHref);
 
     return (
         <div
