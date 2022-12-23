@@ -24,18 +24,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { ALERT_INFO, ERROR_CODE, PERMISSION, UrlFeApp, YOUTUBE_PARAMS } from '../../core/constants/common';
 import { googleLoginActions } from '../../core/redux/slice/login-google-slice';
+import { playlistItemsActions } from '../../core/redux/slice/playlist-items-slice';
 import { getPlaylistsData, playlistsActions } from '../../core/redux/slice/playlists-slice';
 import { userActions } from '../../core/redux/slice/user-slice';
 import { ResponseGoogleLogin } from '../../core/types/base';
 import { UserGoogleInfo } from '../../core/types/user';
-import { YoutubePlaylists } from '../../core/types/youtube-playlists';
 import { YoutubePlaylistItems } from '../../core/types/youtube-playlist-items';
+import { YoutubePlaylists } from '../../core/types/youtube-playlists';
 import { initialGoogleLoginDataState, initialUserGoogleInfoState } from '../../core/utils/ObjectUtils';
 import { getYoutubePlaylistItems, getYoutubePlaylists } from '../../services/youtube-service';
 import AlertBar from '../../shared-components/alert/alert-bar';
 import LoginModal from '../../shared-components/modal/login-modal';
 import './app-bar.scss';
-import { playlistItemsActions } from '../../core/redux/slice/playlist-items-slice';
 
 const pages = ['Home', 'Pricing', 'Blog'];
 

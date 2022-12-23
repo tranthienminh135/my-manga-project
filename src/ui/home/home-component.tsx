@@ -6,6 +6,7 @@ import { UrlFeApp } from '../../core/constants/common';
 import { playlistsDetailActions } from '../../core/redux/slice/playlists-detail-slice';
 import { getPlaylistsData } from '../../core/redux/slice/playlists-slice';
 import { YoutubePlaylistsItem } from '../../core/types/youtube-playlists';
+import CommentFacebook from '../comment/comment-facebook-component';
 
 export default function Home() {
     const youtubePlaylistsRedux = useSelector(getPlaylistsData);
@@ -25,7 +26,7 @@ export default function Home() {
     };
 
     return (
-        <div style={{ overflow: 'auto', height: '500px' }} className="border">
+        <div style={{ overflow: 'auto', height: window.innerHeight - 100 }} className="border">
             <ul>
                 {youtubePlaylistsState &&
                     youtubePlaylistsState.items &&
@@ -41,6 +42,7 @@ export default function Home() {
                         );
                     })}
             </ul>
+            <CommentFacebook currentHref={window.location.href} />
         </div>
     );
 }
