@@ -42,7 +42,8 @@ export default function Home() {
                         );
                     })}
             </ul>
-            <CommentFacebook currentHref={window.location.href} />
+
+            <CommentFacebook currentHref={'https://tranthienminh135.netlify.app/'} />
         </div>
     );
 }
