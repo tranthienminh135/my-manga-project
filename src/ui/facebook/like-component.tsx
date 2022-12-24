@@ -1,3 +1,4 @@
+import { FacebookProvider, Like } from 'react-facebook';
 export type CommentFacebookProps = {
     currentHref: string;
 };
@@ -12,15 +13,9 @@ export default function LikeComponent(props: CommentFacebookProps) {
 
     return (
         <>
-            <div
-                className="fb-like"
-                data-href={currentHref}
-                data-width=""
-                data-layout="standard"
-                data-action="like"
-                data-size="small"
-                data-share="true"
-            ></div>
+            <FacebookProvider appId="699076034884083">
+                <Like href={currentHref} colorScheme="dark" showFaces share />
+            </FacebookProvider>
         </>
     );
 }
