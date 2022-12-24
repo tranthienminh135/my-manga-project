@@ -1,4 +1,5 @@
 import { InitialResponseGoogle } from '../types/base';
+import { initialLoadingFacebookState as initialLoadingFacebook } from '../types/loading-facebook';
 import { initialPlaylistsDetail } from '../types/playlists-detail';
 import { InitialUserInfo } from '../types/user';
 import { InitialYoutubePlaylistItems } from '../types/youtube-playlist-items';
@@ -227,4 +228,8 @@ export const initialPlaylistsDetailState: initialPlaylistsDetail = {
             embedHtml: '',
         },
     },
+};
+
+export const initialLoadingFacebookState: initialLoadingFacebook = {
+    isLoading: false,
 };
