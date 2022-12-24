@@ -7,7 +7,6 @@ import { playlistsDetailActions } from '../../core/redux/slice/playlists-detail-
 import { getPlaylistsData } from '../../core/redux/slice/playlists-slice';
 import { YoutubePlaylistsItem } from '../../core/types/youtube-playlists';
 import CommentFacebook from '../facebook/comment-facebook-component';
-import LikeComponent from '../facebook/like-component';
 
 export default function Home() {
     const youtubePlaylistsRedux = useSelector(getPlaylistsData);
@@ -43,7 +42,6 @@ export default function Home() {
                         );
                     })}
             </ul>
-            <LikeComponent currentHref={window.location.href} />
             <CommentFacebook currentHref={window.location.href} />
         </div>
     );
