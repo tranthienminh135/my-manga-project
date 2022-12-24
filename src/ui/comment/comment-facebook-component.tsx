@@ -4,6 +4,10 @@ export type CommentFacebookProps = {
 
 export default function CommentFacebook(props: CommentFacebookProps) {
     const { currentHref } = props;
+    const dom: any = window;
+    if (dom.FB) {
+        dom.FB.XFBML.parse();
+    }
 
     return (
         <>
