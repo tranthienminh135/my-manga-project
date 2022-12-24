@@ -14,6 +14,12 @@
 # env
 /env
 
+# env file
+.env
+.env.development
+.env.production
+.env.staging
+
 # misc
 .DS_Store
 .env.local

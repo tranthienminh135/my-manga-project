@@ -4,6 +4,7 @@ export type CommentFacebookProps = {
 
 export default function CommentFacebook(props: CommentFacebookProps) {
     const { currentHref } = props;
+
     const dom: any = window;
     if (dom.FB) {
         dom.FB.XFBML.parse();
@@ -11,7 +12,6 @@ export default function CommentFacebook(props: CommentFacebookProps) {
 
     return (
         <>
-            <div>{currentHref}</div>
             <div
                 className="fb-comments"
                 data-href={currentHref}
