@@ -43,7 +43,7 @@ export default function Home() {
                     })}
             </ul>
 
-            <CommentFacebook currentHref={'https://tranthienminh135.netlify.app/'} />
+            <CommentFacebook currentHref={window.location.href} />
         </div>
     );
 }
