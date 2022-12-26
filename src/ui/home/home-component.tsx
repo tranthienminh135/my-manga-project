@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Button, Container, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -27,22 +27,28 @@ export default function Home() {
 
     return (
         <div style={{ overflow: 'auto', height: window.innerHeight - 100 }} className="border">
-            <ul>
-                {youtubePlaylistsState &&
-                    youtubePlaylistsState.items &&
-                    youtubePlaylistsState.items.length > 0 &&
-                    youtubePlaylistsState.items.map((data: YoutubePlaylistsItem, index: number) => {
-                        return (
-                            <li key={data.id}>
-                                {index + 1} -
-                                <Button onClick={() => handleClickLink(data)} color="secondary">
-                                    {data.snippet.title}
-                                </Button>
-                            </li>
-                        );
-                    })}
-            </ul>
-            <CommentFacebook currentHref={window.location.href} />
+            <Container maxWidth="lg" className="border">
+                <Grid container>
+                    <ul>
+                        {youtubePlaylistsState &&
+                            youtubePlaylistsState.items &&
+                            youtubePlaylistsState.items.length > 0 &&
+                            youtubePlaylistsState.items.map((data: YoutubePlaylistsItem, index: number) => {
+                                return (
+                                    <li key={data.id}>
+                                        {index + 1} -
+                                        <Button onClick={() => handleClickLink(data)} color="secondary">
+                                            {'hello'}
+                                        </Button>
+                                    </li>
+                                );
+                            })}
+                    </ul>
+                </Grid>
+                <Grid container sx={{ mt: 3 }}>
+                    <CommentFacebook currentHref={window.location.href} />
+                </Grid>
+            </Container>
         </div>
     );
 }

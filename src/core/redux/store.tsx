@@ -4,7 +4,6 @@ import loginGoogleSlice from './slice/login-google-slice';
 import playlistItemsSlice from './slice/playlist-items-slice';
 import playlistsSlice from './slice/playlists-slice';
 import userSlice from './slice/user-slice';
-import loadingFacebookSlice from './slice/loading-facebook-slice';
 
 export const store = configureStore({
     reducer: {
@@ -13,7 +12,6 @@ export const store = configureStore({
         playlistsData: playlistsSlice,
         playlistItemsData: playlistItemsSlice,
         playlistsDetail: channelIdSlice,
-        loadingFacebook: loadingFacebookSlice,
     },
 });
 
