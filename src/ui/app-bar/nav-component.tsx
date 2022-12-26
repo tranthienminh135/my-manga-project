@@ -35,6 +35,7 @@ import { initialGoogleLoginDataState, initialUserGoogleInfoState } from '../../c
 import { getYoutubePlaylistItems, getYoutubePlaylists } from '../../services/youtube-service';
 import AlertBar from '../../shared-components/alert/alert-bar';
 import LoginModal from '../../shared-components/modal/login-modal';
+import BasicSpeedDial from '../../shared-components/speed-dial/basic-speed-dial';
 import './app-bar.scss';
 
 const pages = ['Home', 'Pricing', 'Blog'];
@@ -342,6 +343,7 @@ export default function NavComponent() {
                 </Container>
             </AppBar>
             <Outlet />
+            <BasicSpeedDial />
             <LoginModal
                 callBackSuccessLogin={handleLoginSuccess}
                 callBackErrorLogin={handleLoginFailed}

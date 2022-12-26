@@ -16,7 +16,7 @@ export default function CommentFacebook(props: CommentFacebookProps) {
                 className="fb-comments"
                 data-href={currentHref}
                 data-width="100%"
-                data-lazy
+                data-lazy={true}
                 data-mobile
                 data-order-by="reverse_time"
                 data-numposts="5"
