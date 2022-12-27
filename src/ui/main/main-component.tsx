@@ -12,9 +12,10 @@ export default function Main() {
                 '& .markdown': {
                     py: 3,
                 },
-                paddingRight: '24px !important',
-                maxHeight: '1370px',
+                padding: '12px !important',
+                maxHeight: '1380px',
                 marginBottom: '24px !important',
+                paddingTop: '0px !important',
             }}
         >
             <TitlebarImageList />

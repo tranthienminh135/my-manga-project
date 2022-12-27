@@ -26,7 +26,7 @@ export default function Sidebar(props: SidebarProps) {
     };
 
     return (
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={4} sx={{ padding: '12px', paddingTop: '0px !important' }}>
             <div style={{ maxHeight: '1515px' }}>
                 <Paper elevation={0} sx={{ p: 2, bgcolor: 'grey.200' }}>
                     <Typography variant="h6" gutterBottom>
@@ -35,26 +35,31 @@ export default function Sidebar(props: SidebarProps) {
                     <Typography>Giới thiệu</Typography>
                 </Paper>
                 <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
-                    Archives
+                    Mới nhất
                 </Typography>
-                <div style={{ maxHeight: '920px', overflowY: 'scroll', overflowX: 'hidden' }} className="w-100">
-                    {archives.map((archive: YoutubePlaylistsItem) => (
-                        <Button
-                            className="d-flex m-2 w-100 border border-2 shadow"
-                            onClick={() => handleTargetYoutubeItem(archive)}
-                            key={archive.id}
-                        >
-                            <img
-                                src={archive.snippet.thumbnails.default.url}
-                                alt={archive.snippet.title}
-                                className="d-inline-block  rounded"
-                                loading="lazy"
-                            />
-                            <span className="d-inline-block text-start w-100 p-2" key={archive.id}>
-                                {archive.snippet.title}
-                            </span>
-                        </Button>
-                    ))}
+                <div className="w-100">
+                    {archives.map((archive: YoutubePlaylistsItem, index: number) => {
+                        if (index <= 4) {
+                            return (
+                                <Button
+                                    size="small"
+                                    className="d-flex m-2 w-100 border border-2 shadow"
+                                    onClick={() => handleTargetYoutubeItem(archive)}
+                                    key={archive.id}
+                                >
+                                    <img
+                                        src={archive.snippet.thumbnails.default.url}
+                                        alt={archive.snippet.title}
+                                        className="d-inline-block  rounded"
+                                        loading="lazy"
+                                    />
+                                    <span className="d-inline-block text-start w-100 p-2" key={archive.id}>
+                                        {archive.snippet.title}
+                                    </span>
+                                </Button>
+                            );
+                        } else return <div key={archive.id}></div>;
+                    })}
                 </div>
 
                 <Divider />

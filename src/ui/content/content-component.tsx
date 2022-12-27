@@ -1,12 +1,18 @@
+import { Container, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { UrlFeApp } from '../../core/constants/common';
 import { getPlaylistItemsData } from '../../core/redux/slice/playlist-items-slice';
 import { getPlaylistsDetail } from '../../core/redux/slice/playlists-detail-slice';
+import { getPlaylistsData } from '../../core/redux/slice/playlists-slice';
 import { YoutubePlaylistItems, YoutubePlaylistItemsItems } from '../../core/types/youtube-playlist-items';
 import { YoutubePlaylistsItem } from '../../core/types/youtube-playlists';
 import { initialPlaylistsDetailState } from '../../core/utils/ObjectUtils';
+import CommentFacebook from '../facebook/comment-facebook-component';
+import FeaturedPost from '../featured-post/featured-post';
+import MainContent from '../main/content/main-content';
+import Sidebar from '../side-bar/side-bar';
 
 export default function Content() {
     const playlistDetailRedux = useSelector(getPlaylistsDetail);
@@ -16,6 +22,14 @@ export default function Content() {
     const playlistItemsRedux = useSelector(getPlaylistItemsData);
     const [playlistItemsReference, setPlaylistItemsReference] = useState<Array<YoutubePlaylistItems>>();
     const [playlistItemsState, setPlaylistItemsState] = useState<YoutubePlaylistItems>();
+    const youtubePlaylistsRedux = useSelector(getPlaylistsData);
+    const [youtubePlaylistsState, setYoutubePlaylistsState] = useState<any>();
+
+    useEffect(() => {
+        if (youtubePlaylistsRedux && youtubePlaylistsRedux.items.length > 0) {
+            setYoutubePlaylistsState(youtubePlaylistsRedux);
+        }
+    }, [youtubePlaylistsRedux]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -51,18 +65,27 @@ export default function Content() {
     }, [playlistDetailRedux, navigate]);
 
     return (
-        <div style={{ overflow: 'auto', height: '500px' }} className="border">
-            <p>
-                {playlistsDetailState.snippet.title} {playlistsDetailState.snippet.channelTitle}
-            </p>
-            <ul>
-                {playlistItemsState &&
-                    playlistItemsState.items &&
-                    playlistItemsState.items.length > 0 &&
-                    playlistItemsState.items.map((item: YoutubePlaylistItemsItems) => (
-                        <li key={item.id}>{item.snippet.title}</li>
-                    ))}
-            </ul>
+        <div style={{ overflow: 'auto', height: window.innerHeight - 100 }} className="border">
+            <Container maxWidth="lg" className="border">
+                <FeaturedPost
+                    post={{
+                        date: playlistsDetailState.snippet.publishedAt,
+                        description: playlistsDetailState.snippet.description,
+                        image: playlistsDetailState.snippet.thumbnails.standard.url,
+                        imageLabel: '',
+                        title: playlistsDetailState.snippet.title,
+                        author: playlistsDetailState.snippet.channelTitle,
+                        channelId: playlistsDetailState.snippet.channelId,
+                    }}
+                />
+                <Grid container sx={{ mt: 3 }}>
+                    {playlistItemsState && <MainContent playlistItems={playlistItemsState} />}
+                    <Sidebar archives={youtubePlaylistsState ? youtubePlaylistsState.items : []} />
+                </Grid>
+                <Grid container sx={{ mt: 3 }}>
+                    <CommentFacebook currentHref={window.location.href} />
+                </Grid>
+            </Container>
         </div>
     );
 }
