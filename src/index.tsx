@@ -8,6 +8,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { store } from './core/redux/store';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import BasicSpeedDial from './shared-components/speed-dial/basic-speed-dial';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
@@ -17,6 +18,7 @@ root.render(
                 <GoogleOAuthProvider
                     clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID ? process.env.REACT_APP_GOOGLE_CLIENT_ID : ''}
                 >
+                    <BasicSpeedDial />
                     <App />
                 </GoogleOAuthProvider>
             </BrowserRouter>
