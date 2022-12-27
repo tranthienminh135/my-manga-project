@@ -27,6 +27,10 @@ export const YOUTUBE_PARAMS: YoutubeParams = {
     MAX_RESULTS: 50,
 };
 
+export const YOUTUBE_URL = {
+    CHANNEL: 'https://www.youtube.com/channel',
+};
+
 export const API = {
     YOUTUBE_PLAYLISTS: `https://youtube.googleapis.com/youtube/v3/playlists`,
     YOUTUBE_PLAYLIST_ITEMS: `https://youtube.googleapis.com/youtube/v3/playlistItems`,
