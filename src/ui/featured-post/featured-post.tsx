@@ -62,15 +62,6 @@ export default function FeaturedPost(props: FeaturedPostProps) {
                                 }}
                             >
                                 {post.description}
-                                Võ đạo đỉnh phong, là cô độc, là tịch mịch, là dài đằng đẵng cầu tác, là cao xử bất
-                                thắng hàn Phát triển trong nghịch cảnh, cầu sinh nơi tuyệt địa, bất khuất không buông
-                                tha, mới có thể có thể phá võ chi cực đạo. Lăng Tiêu các thí luyện đệ tử kiêm quét rác
-                                gã sai vặt Dương Khai ngẫu lấy được một bản vô tự hắc thư, từ nay về sau đạp vào dài
-                                đằng đẵng võ đạo.Võ đạo đỉnh phong, là cô độc, là tịch mịch, là dài đằng đẵng cầu tác,
-                                là cao xử bất thắng hàn Phát triển trong nghịch cảnh, cầu sinh nơi tuyệt địa, bất khuất
-                                không buông tha, mới có thể có thể phá võ chi cực đạo. Lăng Tiêu các thí luyện đệ tử
-                                kiêm quét rác gã sai vặt Dương Khai ngẫu lấy được một bản vô tự hắc thư, từ nay về sau
-                                đạp vào dài đằng đẵng võ đạo.
                             </Typography>
                             <hr />
                             <Stack direction="row" spacing={2}>

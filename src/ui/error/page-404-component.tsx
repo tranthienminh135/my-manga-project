@@ -12,9 +12,9 @@ export default function Page404NotFound() {
                     <h1>404</h1>
                     <h2 className="h2 mb-3">
                         <ReportIcon style={{ fontSize: '2em' }} />
-                        Oops! Page not found!
+                        Oops! Trang không tồn tại!
                     </h2>
-                    <p className="h4 font-weight-normal"> The page you requested was not found. </p>
+                    <p className="h4 font-weight-normal"> Trang của bạn yêu cầu không tìm thấy. </p>
                     <Button
                         variant="contained"
                         color="primary"
@@ -22,7 +22,7 @@ export default function Page404NotFound() {
                         to={UrlFeApp.HOME}
                         sx={{ textTransform: 'uppercase', mt: 2 }}
                     >
-                        Back to home
+                        Trở lại trang chủ
                     </Button>
                 </div>
             </div>

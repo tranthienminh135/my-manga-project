@@ -4,6 +4,7 @@ import loginGoogleSlice from './slice/login-google-slice';
 import playlistItemsSlice from './slice/playlist-items-slice';
 import playlistsSlice from './slice/playlists-slice';
 import userSlice from './slice/user-slice';
+import playlistItemDetailSlice from './slice/playlist-item-detail-slice';
 
 export const store = configureStore({
     reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
         playlistsData: playlistsSlice,
         playlistItemsData: playlistItemsSlice,
         playlistsDetail: channelIdSlice,
+        playlistItemDetail: playlistItemDetailSlice,
     },
 });
 
