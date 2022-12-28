@@ -1,6 +1,5 @@
-import FirstPageIcon from '@mui/icons-material/FirstPage';
-import LastPageIcon from '@mui/icons-material/LastPage';
-import { Button, Stack, Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
+import ButtonGroup from '@mui/material/ButtonGroup';
 import Container from '@mui/material/Container';
 import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
@@ -17,8 +16,6 @@ import { YoutubePlaylistItems, YoutubePlaylistItemsItems } from '../../core/type
 import { initialPlaylistItemDetailState } from '../../core/utils/ObjectUtils';
 import ChangeVideoModal from '../../shared-components/modal/change-video-modal';
 import CommentFacebook from '../facebook/comment-facebook-component';
-import FastRewindIcon from '@mui/icons-material/FastRewind';
-import ButtonGroup from '@mui/material/ButtonGroup';
 
 const initialChangeVideoModalData = {
     okBtn: '',
