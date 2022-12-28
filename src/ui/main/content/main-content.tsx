@@ -2,7 +2,10 @@ import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { formatDateTimeResList } from '../../../core/constants/function';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { UrlFeApp } from '../../../core/constants/common';
+import { playlistItemDetailActions } from '../../../core/redux/slice/playlist-item-detail-slice';
 import { YoutubePlaylistItems, YoutubePlaylistItemsItems } from '../../../core/types/youtube-playlist-items';
 
 type MainContentProps = {
@@ -11,9 +14,12 @@ type MainContentProps = {
 
 export default function MainContent(props: MainContentProps) {
     const { playlistItems } = props;
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    const handleTargetItem = (item: YoutubePlaylistItemsItems) => {
-        console.log(item);
+    const handleTargetItem = (item: YoutubePlaylistItemsItems, index: number) => {
+        dispatch(playlistItemDetailActions.setPlaylistItemDetail(item));
+        navigate(`${UrlFeApp.DETAIL}/${index}`);
     };
 
     return (
@@ -38,11 +44,11 @@ export default function MainContent(props: MainContentProps) {
                 {playlistItems &&
                     playlistItems.items &&
                     playlistItems.items.length > 0 &&
-                    playlistItems.items.map((archive: YoutubePlaylistItemsItems) => (
+                    playlistItems.items.map((archive: YoutubePlaylistItemsItems, index: number) => (
                         <Button
                             size="small"
                             className="d-flex m-2 w-100 border border-2 shadow"
-                            onClick={() => handleTargetItem(archive)}
+                            onClick={() => handleTargetItem(archive, index)}
                             key={archive.id}
                         >
                             <img
@@ -52,7 +58,7 @@ export default function MainContent(props: MainContentProps) {
                                 loading="lazy"
                             />
                             <span className="d-inline-block text-start w-100 p-2" key={archive.id}>
-                                {archive.snippet.title} - {formatDateTimeResList(archive.snippet.publishedAt)}
+                                {archive.snippet.title}
                             </span>
                         </Button>
                     ))}

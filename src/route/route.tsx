@@ -7,6 +7,7 @@ import Page404NotFound from '../ui/error/page-404-component';
 
 const DashBoard = lazy(() => import('../ui/dashboard/dashboard'));
 const Content = lazy(() => import('../ui/content/content-component'));
+const VideoDetail = lazy(() => import('../ui/video/video-detail'));
 
 const listRouter: RouteObject[] = [
     {
@@ -24,6 +25,10 @@ const listRouter: RouteObject[] = [
             {
                 path: UrlFeApp.CONTENT,
                 element: <Content />,
+            },
+            {
+                path: `${UrlFeApp.DETAIL}/:index`,
+                element: <VideoDetail />,
             },
         ],
     },

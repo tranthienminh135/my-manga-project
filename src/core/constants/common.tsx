@@ -14,6 +14,7 @@ export const UrlFeApp = {
     DASH_BOARD: '/dashboard',
     HOME: '/home',
     CONTENT: '/content',
+    DETAIL: '/detail',
 };
 
 export const YOUTUBE_PARAMS: YoutubeParams = {
