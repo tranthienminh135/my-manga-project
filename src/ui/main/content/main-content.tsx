@@ -5,7 +5,6 @@ import Typography from '@mui/material/Typography';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { UrlFeApp } from '../../../core/constants/common';
-import { formatDateTimeResList } from '../../../core/constants/function';
 import { playlistItemDetailActions } from '../../../core/redux/slice/playlist-item-detail-slice';
 import { YoutubePlaylistItems, YoutubePlaylistItemsItems } from '../../../core/types/youtube-playlist-items';
 
@@ -20,7 +19,7 @@ export default function MainContent(props: MainContentProps) {
 
     const handleTargetItem = (item: YoutubePlaylistItemsItems, index: number) => {
         dispatch(playlistItemDetailActions.setPlaylistItemDetail(item));
-        navigate(`${UrlFeApp.DETAIL}/${item.snippet.resourceId.videoId}`);
+        navigate(`${UrlFeApp.DETAIL}/${index}`);
     };
 
     return (

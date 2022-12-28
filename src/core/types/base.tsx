@@ -15,6 +15,16 @@ export type LoginModalProps = {
     callBackErrorLogin: Function;
 };
 
+export type ChangeVideoModalProps = {
+    isOpen: boolean;
+    closeFunc: Function;
+    okFunc: Function;
+    okBtn: string;
+    closeBtn: string;
+    content: string;
+    status: string;
+};
+
 export type AlertBarProps = {
     message: string;
     isOpen: boolean;

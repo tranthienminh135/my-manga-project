@@ -4,10 +4,10 @@ import { RouteObject, useRoutes } from 'react-router-dom';
 import NavComponent from '../ui/app-bar/nav-component';
 import Home from '../ui/home/home-component';
 import Page404NotFound from '../ui/error/page-404-component';
-import VideoDetail from '../ui/video/video-detail';
 
 const DashBoard = lazy(() => import('../ui/dashboard/dashboard'));
 const Content = lazy(() => import('../ui/content/content-component'));
+const VideoDetail = lazy(() => import('../ui/video/video-detail'));
 
 const listRouter: RouteObject[] = [
     {
@@ -27,7 +27,7 @@ const listRouter: RouteObject[] = [
                 element: <Content />,
             },
             {
-                path: `${UrlFeApp.DETAIL}/:id`,
+                path: `${UrlFeApp.DETAIL}/:index`,
                 element: <VideoDetail />,
             },
         ],
