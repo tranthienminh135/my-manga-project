@@ -24,6 +24,7 @@ export default function Content() {
     const [playlistItemsState, setPlaylistItemsState] = useState<YoutubePlaylistItems>();
     const youtubePlaylistsRedux = useSelector(getPlaylistsData);
     const [youtubePlaylistsState, setYoutubePlaylistsState] = useState<any>();
+    const [status, setStatus] = useState<string>('');
 
     useEffect(() => {
         if (youtubePlaylistsRedux && youtubePlaylistsRedux.items.length > 0) {
@@ -64,6 +65,10 @@ export default function Content() {
         }
     }, [playlistDetailRedux, navigate]);
 
+    const handleClickVideo = (status: string) => {
+        setStatus(status);
+    };
+
     return (
         <div style={{ overflow: 'auto', height: window.innerHeight - 100 }} className="border">
             <Container maxWidth="lg" className="border">
@@ -77,9 +82,12 @@ export default function Content() {
                         author: playlistsDetailState.snippet.channelTitle,
                         channelId: playlistsDetailState.snippet.channelId,
                     }}
+                    callBackFn={handleClickVideo}
                 />
                 <Grid container sx={{ mt: 3 }}>
-                    {playlistItemsState && <MainContent playlistItems={playlistItemsState} />}
+                    {playlistItemsState && (
+                        <MainContent key={status} status={status} playlistItems={playlistItemsState} />
+                    )}
                     <Sidebar archives={youtubePlaylistsState ? youtubePlaylistsState.items : []} />
                 </Grid>
                 <Grid container sx={{ mt: 3 }}>
