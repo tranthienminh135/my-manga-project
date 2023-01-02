@@ -7,7 +7,8 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { UrlFeApp } from '../../core/constants/common';
+import { FACEBOOK, UrlFeApp, YOUTUBE_PARAMS } from '../../core/constants/common';
+import { targetUrl } from '../../core/constants/function';
 import { playlistsDetailActions } from '../../core/redux/slice/playlists-detail-slice';
 import { YoutubePlaylistsItem } from '../../core/types/youtube-playlists';
 
@@ -25,6 +26,14 @@ export default function Sidebar(props: SidebarProps) {
         navigate(UrlFeApp.CONTENT);
     };
 
+    const handleTargetYoutubeChannel = () => {
+        targetUrl(`https://www.youtube.com/channel/${YOUTUBE_PARAMS.CHANNEL_ID}`);
+    };
+
+    const handleTargetFacebookChannel = () => {
+        targetUrl(`https://www.facebook.com/profile.php?id=${FACEBOOK.PAGE_ID}`);
+    };
+
     return (
         <Grid item xs={12} md={4} sx={{ padding: '12px', paddingTop: '0px !important' }}>
             <div style={{ maxHeight: '1515px' }}>
@@ -39,7 +48,7 @@ export default function Sidebar(props: SidebarProps) {
                 </Typography>
                 <div className="w-100">
                     {archives.map((archive: YoutubePlaylistsItem, index: number) => {
-                        if (index <= 4) {
+                        if (index <= 6) {
                             return (
                                 <Button
                                     size="small"
@@ -67,10 +76,10 @@ export default function Sidebar(props: SidebarProps) {
                     Liên hệ
                 </Typography>
                 <Stack direction="row" spacing={2}>
-                    <Button variant="outlined" startIcon={<FacebookIcon />}>
+                    <Button variant="outlined" startIcon={<FacebookIcon />} onClick={handleTargetFacebookChannel}>
                         Facebook
                     </Button>
-                    <Button variant="outlined" startIcon={<YouTubeIcon />}>
+                    <Button variant="outlined" startIcon={<YouTubeIcon />} onClick={handleTargetYoutubeChannel}>
                         Youtube
                     </Button>
                 </Stack>

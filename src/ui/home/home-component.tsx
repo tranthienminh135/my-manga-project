@@ -6,6 +6,7 @@ import CommentFacebook from '../facebook/comment-facebook-component';
 import MainFeaturedPost from '../main-featured-post/main-featured-post';
 import Main from '../main/main-component';
 import Sidebar from '../side-bar/side-bar';
+import Background from '../../assets/background.png';
 
 export default function Home() {
     const youtubePlaylistsRedux = useSelector(getPlaylistsData);
@@ -22,11 +23,11 @@ export default function Home() {
             <Container maxWidth="lg" className="border">
                 <MainFeaturedPost
                     post={{
-                        description: 'Description',
-                        image: 'https://media.istockphoto.com/id/637696304/photo/patan.jpg?s=612x612&w=0&k=20&c=-53aSTGBGoOOqX5aoC3Hs1jhZ527v3Id_xOawHHVPpg=',
+                        description: 'Thiên Minh Manhua truyện tranh siêu cấp hệ thống',
+                        image: Background,
                         imageText: 'imageText',
-                        linkText: 'linkText',
-                        title: 'title',
+                        linkText: 'Xem thêm',
+                        title: 'Thiên Minh Manhua',
                     }}
                 />
                 <Grid container sx={{ mt: 3 }}>

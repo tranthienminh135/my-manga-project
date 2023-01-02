@@ -3,6 +3,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
+import { YOUTUBE_PARAMS } from '../../core/constants/common';
 
 interface MainFeaturedPostProps {
     post: {
@@ -50,13 +51,23 @@ export default function MainFeaturedPost(props: MainFeaturedPostProps) {
                             pr: { md: 0 },
                         }}
                     >
-                        <Typography component="h1" variant="h3" color="inherit" gutterBottom>
+                        <Typography
+                            component="h1"
+                            variant="h3"
+                            color="inherit"
+                            gutterBottom
+                            className="text-uppercase fw-bold"
+                        >
                             {post.title}
                         </Typography>
                         <Typography variant="h5" color="inherit" paragraph>
                             {post.description}
                         </Typography>
-                        <Link variant="subtitle1" href="#">
+                        <Link
+                            variant="subtitle1"
+                            href={`https://www.youtube.com/channel/${YOUTUBE_PARAMS.CHANNEL_ID}`}
+                            target="_blank"
+                        >
                             {post.linkText}
                         </Link>
                     </Box>

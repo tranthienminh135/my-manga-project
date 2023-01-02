@@ -51,3 +51,7 @@ export const ALERT_INFO = {
         FAILED: 'Đăng xuất thất bại!',
     },
 };
+
+export const FACEBOOK = {
+    PAGE_ID: process.env.REACT_APP_FACEBOOK_PAGE_ID ? process.env.REACT_APP_FACEBOOK_PAGE_ID : '',
+};

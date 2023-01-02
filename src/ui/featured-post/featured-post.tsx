@@ -19,13 +19,22 @@ interface FeaturedPostProps {
         author: string;
         channelId: string;
     };
+    callBackFn: Function;
 }
 
 export default function FeaturedPost(props: FeaturedPostProps) {
-    const { post } = props;
+    const { post, callBackFn } = props;
 
     const handleClickChannel = () => {
         targetUrl(`${YOUTUBE_URL.CHANNEL}/${post.channelId}`);
+    };
+
+    const handleClickFirstVideo = () => {
+        callBackFn('FIRST');
+    };
+
+    const handleClickLastVideo = () => {
+        callBackFn('LAST');
     };
 
     return (
@@ -70,6 +79,7 @@ export default function FeaturedPost(props: FeaturedPostProps) {
                                     size="small"
                                     startIcon={<FirstPageIcon fontSize="small" />}
                                     color="secondary"
+                                    onClick={handleClickFirstVideo}
                                 >
                                     Xem Từ Đầu
                                 </Button>
@@ -78,6 +88,7 @@ export default function FeaturedPost(props: FeaturedPostProps) {
                                     size="small"
                                     startIcon={<LastPageIcon fontSize="small" />}
                                     color="warning"
+                                    onClick={handleClickLastVideo}
                                 >
                                     Xem Mới Nhất
                                 </Button>

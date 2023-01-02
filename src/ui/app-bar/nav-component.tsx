@@ -4,7 +4,6 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import PersonIcon from '@mui/icons-material/Person';
 import SearchIcon from '@mui/icons-material/Search';
-import { FormControl, InputAdornment, OutlinedInput } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -37,7 +36,13 @@ import AlertBar from '../../shared-components/alert/alert-bar';
 import LoginModal from '../../shared-components/modal/login-modal';
 import './app-bar.scss';
 
-const pages = ['Home', 'Pricing', 'Blog'];
+const pages = [
+    {
+        id: 0,
+        name: 'Trang chủ',
+        url: UrlFeApp.HOME,
+    },
+];
 
 export default function NavComponent() {
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -47,7 +52,6 @@ export default function NavComponent() {
     const [isOpenLoginModal, setIsOpenLoginModal] = useState<boolean>(false);
     const [messageGoogleLogin, setMessageGoogleLogin] = useState<string>('');
     const [isOpenAlert, setIsOpenAlert] = useState<boolean>(false);
-    const [searchInputValue, setSearchInputValue] = useState<string>('');
     const navigate = useNavigate();
     const location = useLocation();
     const youtubePlaylistsRedux: YoutubePlaylists = useSelector(getPlaylistsData);
@@ -108,14 +112,6 @@ export default function NavComponent() {
         }
     }, [location, location.pathname, navigate]);
 
-    const handleSearchInput = () => {
-        console.log({ searchInputValue });
-    };
-
-    const handleSearchInputChange = (e: any) => {
-        setSearchInputValue(e.target.value);
-    };
-
     const handleOpenNavMenu = (event: any) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -125,7 +121,6 @@ export default function NavComponent() {
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
-        navigate(UrlFeApp.HOME);
     };
 
     const handleCloseUserMenu = () => {
@@ -172,6 +167,10 @@ export default function NavComponent() {
 
     const handleCloseAlert = () => {
         setIsOpenAlert(false);
+    };
+
+    const handleTargetNav = (url: string) => {
+        navigate(url);
     };
 
     return (
@@ -228,8 +227,8 @@ export default function NavComponent() {
                                 }}
                             >
                                 {pages.map((page) => (
-                                    <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                        <Typography textAlign="center">{page}</Typography>
+                                    <MenuItem key={page.id} onClick={() => handleTargetNav(page.url)}>
+                                        <Typography textAlign="center">{page.name}</Typography>
                                     </MenuItem>
                                 ))}
                             </Menu>
@@ -256,41 +255,17 @@ export default function NavComponent() {
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                             {pages.map((page) => (
                                 <Button
-                                    key={page}
-                                    onClick={handleCloseNavMenu}
+                                    key={page.id}
+                                    onClick={() => handleTargetNav(page.url)}
                                     sx={{ my: 2, color: 'white', display: 'block' }}
                                 >
-                                    {page}
+                                    {page.name}
                                 </Button>
                             ))}
                         </Box>
-                        <FormControl
-                            sx={{ m: 1, width: '30ch', display: { xs: 'none', md: 'flex' } }}
-                            variant="outlined"
-                        >
-                            <OutlinedInput
-                                sx={{ color: 'white', maxHeight: '40px' }}
-                                id="outlined-adornment-password"
-                                className="border"
-                                type="text"
-                                placeholder="Tìm kiếm..."
-                                onChange={handleSearchInputChange}
-                                name="search"
-                                value={searchInputValue}
-                                endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={handleSearchInput}
-                                            edge="end"
-                                        >
-                                            <SearchIcon sx={{ color: 'white' }} />
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                                label="Password"
-                            />
-                        </FormControl>
+                        <IconButton>
+                            <SearchIcon sx={{ color: 'white' }} />
+                        </IconButton>
 
                         {userInfo.email_verified ? (
                             <Box sx={{ flexGrow: 0 }}>

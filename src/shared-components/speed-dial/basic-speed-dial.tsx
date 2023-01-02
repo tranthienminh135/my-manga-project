@@ -1,16 +1,21 @@
-import EmailIcon from '@mui/icons-material/Email';
-import ShareIcon from '@mui/icons-material/Share';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import YouTubeIcon from '@mui/icons-material/YouTube';
 import Box from '@mui/material/Box';
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import { FACEBOOK, YOUTUBE_PARAMS } from '../../core/constants/common';
+import { targetUrl } from '../../core/constants/function';
 
 const actions = [
-    { icon: <EmailIcon />, name: 'Email' },
-    { icon: <ShareIcon />, name: 'Share' },
+    { icon: <FacebookIcon />, name: 'Facebook', url: `https://www.facebook.com/profile.php?id=${FACEBOOK.PAGE_ID}` },
+    { icon: <YouTubeIcon />, name: 'Youtube', url: `https://www.youtube.com/channel/${YOUTUBE_PARAMS.CHANNEL_ID}` },
 ];
 
 export default function BasicSpeedDial() {
+    const handleTargetChannel = (url: string) => {
+        targetUrl(url);
+    };
     return (
         <Box
             sx={{
@@ -33,7 +38,7 @@ export default function BasicSpeedDial() {
                         key={action.name}
                         icon={action.icon}
                         tooltipTitle={action.name}
-                        onClick={() => console.log(window.location.pathname)}
+                        onClick={() => handleTargetChannel(action.url)}
                     />
                 ))}
             </SpeedDial>
