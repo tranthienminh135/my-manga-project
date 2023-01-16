@@ -23,11 +23,11 @@ export default function Home() {
             <Container maxWidth="lg" className="border">
                 <MainFeaturedPost
                     post={{
-                        description: 'Thiên Minh Manhua truyện tranh siêu cấp hệ thống',
+                        description: 'Truyện tranh siêu cấp hệ thống',
                         image: Background,
                         imageText: 'imageText',
                         linkText: 'Xem thêm',
-                        title: 'Thiên Minh Manhua',
+                        title: 'Trần Thiên Minh',
                     }}
                 />
                 <Grid container sx={{ mt: 3 }}>
