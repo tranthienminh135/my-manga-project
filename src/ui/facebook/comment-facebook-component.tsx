@@ -33,7 +33,7 @@ export default function CommentFacebook(props: CommentFacebookProps) {
                 fjs.parentNode.insertBefore(js, fjs);
             })(document, 'script', 'facebook-jssdk');
         }
-    }, []);
+    }, [currentHref]);
 
     return (
         <>
