@@ -90,7 +90,6 @@ export default function Content() {
                     )}
                     <Sidebar archives={youtubePlaylistsState ? youtubePlaylistsState.items : []} />
                 </Grid>
-                {`${window.location.href}/${playlistsDetailState.id}`}
                 <Grid container sx={{ mt: 3 }}>
                     <CommentFacebook currentHref={`${window.location.href}/${playlistsDetailState.id}`} />
                 </Grid>
