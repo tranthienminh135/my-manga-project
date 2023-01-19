@@ -90,7 +90,7 @@ export default function Home() {
                                     severity="info"
                                     icon={false}
                                 >
-                                    <a href={ads.url} target="_blank">
+                                    <a href={ads.url} target="_blank" rel="noreferrer">
                                         <img
                                             src={ads.image}
                                             alt=""
@@ -100,7 +100,7 @@ export default function Home() {
                                             }}
                                         />
                                     </a>
-                                    <a href={ads.url} target="_blank">
+                                    <a href={ads.url} target="_blank" rel="noreferrer">
                                         <div className="p-3 text-dark">{ads.name}</div>
                                     </a>
                                 </Alert>
@@ -143,7 +143,7 @@ export default function Home() {
                                     severity="info"
                                     icon={false}
                                 >
-                                    <a href={ads.url} target="_blank">
+                                    <a href={ads.url} target="_blank" rel="noreferrer">
                                         <img
                                             src={ads.image}
                                             alt=""
@@ -153,7 +153,7 @@ export default function Home() {
                                             }}
                                         />
                                     </a>
-                                    <a href={ads.url} target="_blank">
+                                    <a href={ads.url} target="_blank" rel="noreferrer">
                                         <div className="p-3 text-dark">{ads.name}</div>
                                     </a>
                                 </Alert>
