@@ -1,0 +1,59 @@
+import { Alert } from '@mui/material';
+import { useState } from 'react';
+import { adsList } from '../../core/utils/AdsStore';
+import { useSelector } from 'react-redux';
+import { getUserGoogleInfo } from '../../core/redux/slice/user-slice';
+import { getRandom } from '../../core/constants/function';
+
+export default function LeftAds() {
+    const userInfo = useSelector(getUserGoogleInfo);
+    const [adsListState, setAdsListState] = useState(() => getRandom(adsList, 4));
+
+    const handleClose = (id: number) => {
+        setAdsListState(
+            [...adsListState].map((ads: any) => {
+                if (ads.id === id) {
+                    ads.isClose = false;
+                }
+                return ads;
+            }),
+        );
+    };
+
+    return (
+        <>
+            {adsListState.map((ads: any, index: number) => {
+                return (
+                    !userInfo.isAdmin &&
+                    ads.isClose && (
+                        <Alert
+                            key={ads.id}
+                            onClose={() => handleClose(ads.id)}
+                            className="p-1 border"
+                            style={{
+                                height: '25%',
+                                overflow: 'hidden',
+                            }}
+                            severity="info"
+                            icon={false}
+                        >
+                            <a href={ads.url} target="_blank" rel="noreferrer">
+                                <img
+                                    src={ads.image}
+                                    alt=""
+                                    width="100%"
+                                    style={{
+                                        maxHeight: '100%',
+                                    }}
+                                />
+                            </a>
+                            <a href={ads.url} target="_blank" rel="noreferrer">
+                                <div className="p-3 text-dark">{ads.name}</div>
+                            </a>
+                        </Alert>
+                    )
+                );
+            })}
+        </>
+    );
+}
