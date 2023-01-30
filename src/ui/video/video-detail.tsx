@@ -258,7 +258,7 @@ export default function VideoDetail() {
                     <Grid item md={12} lg={2} className="d-none d-xl-block">
                         <LeftAds />
                     </Grid>
-                    <Grid item md={12} lg={8} className="border p-3">
+                    <Grid item md={12} lg={8} className="border p-3 w-100">
                         <Grid container sx={{ mt: 3 }} className="p-3 d-block d-xl-none">
                             <TopAds />
                         </Grid>
@@ -303,6 +303,9 @@ export default function VideoDetail() {
                                         playerVars: {
                                             autoplay: autoPlayState.status ? 1 : 0,
                                         },
+                                    }}
+                                    style={{
+                                        minWidth: '0',
                                     }}
                                     onEnd={handleEndVideo}
                                 />
