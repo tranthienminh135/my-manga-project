@@ -9,10 +9,10 @@ export default function BottomAds() {
     const [adsListState, setAdsListState] = useState(() => getRandom(adsList, 4));
     const userInfo = useSelector(getUserGoogleInfo);
 
-    const handleClose = (id: number) => {
+    const handleClose = (i: number) => {
         setAdsListState(
-            adsListState.map((ads: any) => {
-                if (ads.id === id) {
+            adsListState.map((ads: any, index: number) => {
+                if (index === i) {
                     ads.isClose = false;
                 }
                 return ads;
@@ -27,8 +27,8 @@ export default function BottomAds() {
                     !userInfo.isAdmin &&
                     ads.isClose && (
                         <Alert
-                            key={ads.id}
-                            onClose={() => handleClose(ads.id)}
+                            key={index}
+                            onClose={() => handleClose(index)}
                             className="p-1 border float-end"
                             style={{
                                 height: '25%',

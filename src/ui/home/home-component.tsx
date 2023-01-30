@@ -44,10 +44,10 @@ export default function Home() {
                         <Main />
                         <Sidebar archives={youtubePlaylistsState ? youtubePlaylistsState.items : []} />
                     </Grid>
-                    <Grid container sx={{ mt: 3 }} className="p-3 d-block d-xl-none">
+                    <Grid container sx={{ mt: 3 }} className="p-3 ps-4 d-block d-xl-none">
                         <BottomAds />
                     </Grid>
-                    <Grid container sx={{ mt: 3 }} className="ps-2">
+                    <Grid container sx={{ mt: 3 }} className="ps-4">
                         <CommentFacebook currentHref={window.location.href} />
                     </Grid>
                 </Grid>
