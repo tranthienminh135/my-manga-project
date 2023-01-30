@@ -1,6 +1,5 @@
-import { Button, Typography } from '@mui/material';
+import { Button, Typography, Tooltip } from '@mui/material';
 import ButtonGroup from '@mui/material/ButtonGroup';
-import Container from '@mui/material/Container';
 import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
 import MenuItem from '@mui/material/MenuItem';
@@ -15,7 +14,19 @@ import { getPlaylistItemsData } from '../../core/redux/slice/playlist-items-slic
 import { YoutubePlaylistItems, YoutubePlaylistItemsItems } from '../../core/types/youtube-playlist-items';
 import { initialPlaylistItemDetailState } from '../../core/utils/ObjectUtils';
 import ChangeVideoModal from '../../shared-components/modal/change-video-modal';
+import BottomAds from '../ads/bottom-ads';
+import LeftAds from '../ads/left-ads';
+import RightAds from '../ads/right-ads';
+import TopAds from '../ads/top-ads';
 import CommentFacebook from '../facebook/comment-facebook-component';
+import SkipNextIcon from '@mui/icons-material/SkipNext';
+import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
+import IconButton from '@mui/material/IconButton';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import PlayDisabledIcon from '@mui/icons-material/PlayDisabled';
+import UpdateDisabledIcon from '@mui/icons-material/UpdateDisabled';
+import UpdateIcon from '@mui/icons-material/Update';
 
 const initialChangeVideoModalData = {
     okBtn: '',
@@ -23,6 +34,26 @@ const initialChangeVideoModalData = {
     content: '',
     status: '',
     isOpenChangeVideoModal: false,
+};
+
+type AutoColor = 'inherit' | 'error' | 'secondary' | 'primary' | 'success' | 'info' | 'warning' | undefined;
+
+type AutoNext = {
+    status: boolean;
+    name: string;
+    color: AutoColor;
+};
+
+const initAutoNext: AutoNext = {
+    status: true,
+    name: 'Đang bật',
+    color: 'success',
+};
+
+const initAutoPlay: AutoNext = {
+    status: true,
+    name: 'Đang bật',
+    color: 'success',
 };
 
 export default function VideoDetail() {
@@ -38,6 +69,8 @@ export default function VideoDetail() {
     const [playListItemsDetail, setPlaylistItemsDetail] = useState<YoutubePlaylistItems>();
     const [changeVideoModalData, setChangeVideoModalData] = useState(initialChangeVideoModalData);
     const [eventVideo, setEventVideo] = useState<any>();
+    const [autoNextState, setAutoNextState] = useState(initAutoNext);
+    const [autoPlayState, setAutoPlayState] = useState(initAutoPlay);
 
     useEffect(() => {
         if (playlistItemsRedux && playlistItemsRedux.length > 0) {
@@ -60,26 +93,35 @@ export default function VideoDetail() {
     }, [playlistItemDetailRedux, navigate]);
 
     const handleEndVideo = (event: any) => {
-        setEventVideo(event);
-        if (playListItemsDetail && playListItemsDetail.items && playListItemsDetail.items.length > 0) {
-            if (playListItemsDetail.items.length > currentIndex + 1) {
-                setChangeVideoModalData({
-                    okBtn: 'Xem tập mới',
-                    closeBtn: 'Xem lại tập này',
-                    content: 'Video đã kết thúc bạn có muốn xem tập tiếp theo không?',
-                    status: 'NEXT',
-                    isOpenChangeVideoModal: true,
+        if (!autoNextState.status) {
+            setEventVideo(event);
+            if (playListItemsDetail && playListItemsDetail.items && playListItemsDetail.items.length > 0) {
+                if (playListItemsDetail.items.length > currentIndex + 1) {
+                    setChangeVideoModalData({
+                        okBtn: 'Xem tập mới',
+                        closeBtn: 'Xem lại tập này',
+                        content: 'Video đã kết thúc bạn có muốn xem tập tiếp theo không?',
+                        status: 'NEXT',
+                        isOpenChangeVideoModal: true,
+                    });
+                } else if (playListItemsDetail.items.length === currentIndex + 1) {
+                    setChangeVideoModalData({
+                        okBtn: 'Xem truyện khác',
+                        closeBtn: 'Xem lại bộ này',
+                        content: 'Bộ này đã tạm thời kết thúc hãy đón chờ tập mới trong thời gian tới.',
+                        status: 'END',
+                        isOpenChangeVideoModal: true,
+                    });
+                } else {
+                    console.log('nho hon');
+                }
+            }
+        } else {
+            if (playListItemsDetail && playListItemsDetail.items && playListItemsDetail.items.length > 0) {
+                setPlaylistItemDetailState(() => {
+                    setCurrentIndex(currentIndex + 1);
+                    return playListItemsDetail.items[currentIndex + 1];
                 });
-            } else if (playListItemsDetail.items.length === currentIndex + 1) {
-                setChangeVideoModalData({
-                    okBtn: 'Xem truyện khác',
-                    closeBtn: 'Xem lại bộ này',
-                    content: 'Bộ này đã tạm thời kết thúc hãy đón chờ tập mới trong thời gian tới.',
-                    status: 'END',
-                    isOpenChangeVideoModal: true,
-                });
-            } else {
-                console.log('nho hon');
             }
         }
     };
@@ -177,94 +219,167 @@ export default function VideoDetail() {
         navigate(UrlFeApp.CONTENT);
     };
 
+    const handleAutoNext = () => {
+        if (autoNextState.status) {
+            setAutoNextState({
+                status: false,
+                name: 'Đang tắt',
+                color: 'inherit',
+            });
+        } else {
+            setAutoNextState({
+                status: true,
+                name: 'Đang bật',
+                color: 'success',
+            });
+        }
+    };
+
+    const handleAutoPlay = () => {
+        if (autoPlayState.status) {
+            setAutoPlayState({
+                status: false,
+                name: 'Đang tắt',
+                color: 'inherit',
+            });
+        } else {
+            setAutoNextState({
+                status: true,
+                name: 'Đang bật',
+                color: 'success',
+            });
+        }
+    };
+
     return (
         <>
             <div style={{ overflow: 'auto', height: window.innerHeight - 100 }} className="border">
-                <Container maxWidth="lg" className="border">
-                    <Grid container>
-                        <Grid item xs={12} className="text-center">
-                            <FormControl sx={{ width: '100%' }} className="p-4 m-0">
-                                <Select
-                                    value={playlistItemDetailState.snippet.resourceId.videoId}
-                                    onChange={handleVideoChange}
-                                    displayEmpty
-                                    inputProps={{ 'aria-label': 'Without label' }}
-                                    name="video"
-                                >
-                                    {playListItemsDetail &&
-                                        playListItemsDetail.items &&
-                                        playListItemsDetail.items.length > 0 &&
-                                        playListItemsDetail.items.map(
-                                            (item: YoutubePlaylistItemsItems, index: number) => {
-                                                return (
-                                                    <MenuItem
-                                                        key={item.snippet.resourceId.videoId}
-                                                        value={item.snippet.resourceId.videoId}
-                                                    >
-                                                        <Typography className="w-100">{item.snippet.title}</Typography>
-                                                    </MenuItem>
-                                                );
-                                            },
-                                        )}
-                                </Select>
-                            </FormControl>
-                            <YouTube
-                                key={playlistItemDetailState.snippet.resourceId.videoId}
-                                videoId={playlistItemDetailState.snippet.resourceId.videoId}
-                                opts={{
-                                    height: window.innerHeight - 300,
-                                    width: '100%',
-                                    playerVars: {
-                                        autoplay: 0,
-                                    },
-                                }}
-                                onEnd={handleEndVideo}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <ButtonGroup size="small" aria-label="large button group">
-                                <Button
-                                    key="one"
-                                    variant="contained"
-                                    size="medium"
-                                    color="secondary"
-                                    onClick={handleBeforeVideo}
-                                    disabled={currentIndex === 0}
-                                >
-                                    Tập trước
-                                </Button>
-                                <Button
-                                    key="two"
-                                    variant="contained"
-                                    size="medium"
-                                    color="warning"
-                                    onClick={handleNextVideo}
-                                    disabled={
-                                        playListItemsDetail && playListItemsDetail.items.length <= currentIndex + 1
-                                    }
-                                >
-                                    Tập sau
-                                </Button>
-                                <Button
-                                    key="three"
-                                    variant="contained"
-                                    size="medium"
-                                    color="primary"
-                                    onClick={handleBackToPlaylist}
-                                >
-                                    Quay lại
-                                </Button>
-                            </ButtonGroup>
-                        </Grid>
+                <Grid container spacing={3} className="p-0">
+                    <Grid item md={12} lg={2} className="d-none d-xl-block">
+                        <LeftAds />
                     </Grid>
-                    <Grid container sx={{ mt: 3 }}>
-                        {
+                    <Grid item md={12} lg={8} className="border p-3">
+                        <Grid container sx={{ mt: 3 }} className="p-3 d-block d-xl-none">
+                            <TopAds />
+                        </Grid>
+                        <Grid container sx={{ mt: 3 }} className="p-3">
+                            <Grid item xs={12} className="text-center">
+                                <FormControl sx={{ width: '100%' }} className="p-4 m-0">
+                                    <Select
+                                        value={playlistItemDetailState.snippet.resourceId.videoId}
+                                        onChange={handleVideoChange}
+                                        displayEmpty
+                                        inputProps={{ 'aria-label': 'Without label' }}
+                                        name="video"
+                                        sx={{
+                                            borderRadius: '20px',
+                                        }}
+                                    >
+                                        {playListItemsDetail &&
+                                            playListItemsDetail.items &&
+                                            playListItemsDetail.items.length > 0 &&
+                                            playListItemsDetail.items.map(
+                                                (item: YoutubePlaylistItemsItems, index: number) => {
+                                                    return (
+                                                        <MenuItem
+                                                            key={item.snippet.resourceId.videoId}
+                                                            value={item.snippet.resourceId.videoId}
+                                                        >
+                                                            <Typography className="w-100">
+                                                                {item.snippet.title}
+                                                            </Typography>
+                                                        </MenuItem>
+                                                    );
+                                                },
+                                            )}
+                                    </Select>
+                                </FormControl>
+                                <YouTube
+                                    key={playlistItemDetailState.snippet.resourceId.videoId}
+                                    videoId={playlistItemDetailState.snippet.resourceId.videoId}
+                                    opts={{
+                                        height: window.innerHeight - 300,
+                                        width: '100%',
+                                        playerVars: {
+                                            autoplay: autoPlayState.status ? 1 : 0,
+                                        },
+                                    }}
+                                    onEnd={handleEndVideo}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <ButtonGroup size="small" aria-label="large button group" className="border p-1">
+                                    <Tooltip title="Tập trước" placement="top">
+                                        <IconButton
+                                            key="one"
+                                            size="large"
+                                            color="secondary"
+                                            onClick={handleBeforeVideo}
+                                            disabled={currentIndex === 0}
+                                        >
+                                            <SkipPreviousIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                    <Tooltip title="Tập sau" placement="top">
+                                        <IconButton
+                                            key="two"
+                                            size="large"
+                                            color="warning"
+                                            onClick={handleNextVideo}
+                                            disabled={
+                                                playListItemsDetail &&
+                                                playListItemsDetail.items.length <= currentIndex + 1
+                                            }
+                                        >
+                                            <SkipNextIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                    <Tooltip title="Trở lại" placement="top">
+                                        <IconButton
+                                            key="three"
+                                            size="large"
+                                            color="primary"
+                                            onClick={handleBackToPlaylist}
+                                        >
+                                            <ArrowBackIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                    <Tooltip title={`Tự động chuyển tập [${autoNextState.name}]`} placement="top">
+                                        <IconButton
+                                            key="three"
+                                            size="large"
+                                            color={autoNextState.color}
+                                            onClick={handleAutoNext}
+                                        >
+                                            {autoNextState.status ? <UpdateIcon /> : <UpdateDisabledIcon />}
+                                        </IconButton>
+                                    </Tooltip>
+                                    <Tooltip title={`Tự động phát [${autoPlayState.name}]`} placement="top">
+                                        <IconButton
+                                            key="three"
+                                            size="large"
+                                            color={autoPlayState.color}
+                                            onClick={handleAutoPlay}
+                                        >
+                                            {autoPlayState.status ? <PlayArrowIcon /> : <PlayDisabledIcon />}
+                                        </IconButton>
+                                    </Tooltip>
+                                </ButtonGroup>
+                            </Grid>
+                        </Grid>
+                        <Grid container sx={{ mt: 3 }} className="p-3 ps-4 d-block d-xl-none">
+                            <BottomAds />
+                        </Grid>
+                        <Grid container sx={{ mt: 3 }} className="ps-4">
                             <CommentFacebook
                                 currentHref={`${window.location.href}/${playlistItemDetailState.snippet.resourceId.videoId}`}
                             />
-                        }
+                        </Grid>
                     </Grid>
-                </Container>
+                    <Grid item md={12} lg={2} className="d-none d-xl-block">
+                        <RightAds />
+                    </Grid>
+                </Grid>
             </div>
             <ChangeVideoModal
                 isOpen={changeVideoModalData.isOpenChangeVideoModal}
