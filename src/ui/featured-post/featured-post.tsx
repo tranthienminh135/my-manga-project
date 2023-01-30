@@ -38,7 +38,7 @@ export default function FeaturedPost(props: FeaturedPostProps) {
     };
 
     return (
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12}>
             <Card sx={{ display: 'flex' }}>
                 <Grid container className="shadow rounded">
                     <Grid item sm={12} lg={6} className="w-100 p-1">
