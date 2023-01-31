@@ -62,7 +62,7 @@ export default function MainContent(props: MainContentProps) {
             }}
         >
             <Typography variant="subtitle1" color="text.secondary">
-                <strong className="d-block ">Danh sách tập: </strong>
+                <strong className="d-block "> {`Danh sách tập [${playlistItems.items.length}]`}: </strong>
             </Typography>
             <div style={{ maxHeight: '885px', overflowY: 'scroll', overflowX: 'hidden' }} className="w-100 border">
                 {playlistItems &&
@@ -82,7 +82,7 @@ export default function MainContent(props: MainContentProps) {
                                 loading="lazy"
                             />
                             <span className="d-inline-block text-start w-100 p-2" key={archive.id}>
-                                {archive.snippet.title}
+                                {`${archive.snippet.title}`}
                             </span>
                         </Button>
                     ))}
