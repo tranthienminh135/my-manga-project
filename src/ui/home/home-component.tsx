@@ -23,11 +23,11 @@ export default function Home() {
 
     return (
         <div style={{ overflow: 'auto', height: window.innerHeight - 100 }} className="border">
-            <Grid container spacing={3} className="p-0">
+            <Grid container spacing={3}>
                 <Grid item md={12} lg={2} className="d-none d-xl-block">
                     <LeftAds />
                 </Grid>
-                <Grid item md={12} lg={8} className="border p-3">
+                <Grid item md={12} lg={8} className="border">
                     <MainFeaturedPost
                         post={{
                             description: 'Truyện tranh siêu cấp hệ thống',
@@ -37,17 +37,17 @@ export default function Home() {
                             title: 'Trần Thiên Minh',
                         }}
                     />
-                    <Grid container sx={{ mt: 3 }} className="p-3 d-block d-xl-none">
+                    <Grid container sx={{ mt: 3 }} className="d-block d-xl-none">
                         <TopAds />
                     </Grid>
-                    <Grid container sx={{ mt: 3 }} className="p-3">
+                    <Grid container sx={{ mt: 3 }}>
                         <Main />
                         <Sidebar archives={youtubePlaylistsState ? youtubePlaylistsState.items : []} />
                     </Grid>
-                    <Grid container sx={{ mt: 3 }} className="p-3 ps-4 d-block d-xl-none">
+                    <Grid container sx={{ mt: 3 }} className=" d-block d-xl-none">
                         <BottomAds />
                     </Grid>
-                    <Grid container sx={{ mt: 3 }} className="ps-4">
+                    <Grid container sx={{ mt: 3 }}>
                         <CommentFacebook currentHref={window.location.href} />
                     </Grid>
                 </Grid>

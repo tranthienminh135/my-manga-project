@@ -12,7 +12,6 @@ export default function Main() {
                 '& .markdown': {
                     py: 3,
                 },
-                padding: '12px !important',
                 maxHeight: '1380px',
                 marginBottom: '24px !important',
                 paddingTop: '0px !important',

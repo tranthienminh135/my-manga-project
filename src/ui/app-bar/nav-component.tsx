@@ -330,7 +330,9 @@ export default function NavComponent() {
                                     <MenuItem onClick={handleCloseUserMenu} className="fw-bold">
                                         <Chip
                                             color={`${userInfo.isAdmin ? 'error' : 'success'}`}
-                                            label={`${userInfo.name} - ${userInfo.isAdmin ? 'Võ Đế' : 'Võ Thần Quân'}`}
+                                            label={`${userInfo.name} - ${
+                                                userInfo.isAdmin ? '[Chân tiên]' : '[Luyện khí kỳ]'
+                                            }`}
                                             icon={<PersonIcon />}
                                         />
                                     </MenuItem>

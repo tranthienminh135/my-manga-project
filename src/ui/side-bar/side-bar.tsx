@@ -35,7 +35,7 @@ export default function Sidebar(props: SidebarProps) {
     };
 
     return (
-        <Grid item xs={12} md={4} sx={{ padding: '12px', paddingTop: '0px !important' }}>
+        <Grid item xs={12} md={4} className="p-3">
             <div style={{ maxHeight: '1515px' }}>
                 <Paper elevation={0} sx={{ p: 2, bgcolor: 'grey.200' }}>
                     <Typography variant="h6" gutterBottom>
@@ -52,7 +52,7 @@ export default function Sidebar(props: SidebarProps) {
                             return (
                                 <Button
                                     size="small"
-                                    className="d-flex m-2 w-100 border border-2 shadow"
+                                    className="d-flex p-2 w-100 border border-2 shadow"
                                     onClick={() => handleTargetYoutubeItem(archive)}
                                     key={archive.id}
                                 >
