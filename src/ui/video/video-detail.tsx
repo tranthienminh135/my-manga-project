@@ -243,7 +243,7 @@ export default function VideoDetail() {
                 color: 'inherit',
             });
         } else {
-            setAutoNextState({
+            setAutoPlayState({
                 status: true,
                 name: 'Đang bật',
                 color: 'success',
@@ -258,13 +258,13 @@ export default function VideoDetail() {
                     <Grid item md={12} lg={2} className="d-none d-xl-block">
                         <LeftAds />
                     </Grid>
-                    <Grid item md={12} lg={8} className="border p-3 w-100">
-                        <Grid container sx={{ mt: 3 }} className="p-3 d-block d-xl-none">
+                    <Grid item md={12} lg={8} className="border w-100 p-0">
+                        <Grid container sx={{ mt: 3 }} className="ps-3 d-block d-xl-none">
                             <TopAds />
                         </Grid>
-                        <Grid container sx={{ mt: 3 }} className="p-3">
-                            <Grid item xs={12} className="text-center">
-                                <FormControl sx={{ width: '100%' }} className="p-4 m-0">
+                        <Grid container sx={{ mt: 3 }}>
+                            <Grid item xs={12} className="text-center m-auto p-3">
+                                <FormControl sx={{ width: '100%' }} className="p-4 ps-5">
                                     <Select
                                         value={playlistItemDetailState.snippet.resourceId.videoId}
                                         onChange={handleVideoChange}
@@ -307,11 +307,12 @@ export default function VideoDetail() {
                                     style={{
                                         minWidth: '0',
                                     }}
+                                    className="ms-2"
                                     onEnd={handleEndVideo}
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                <ButtonGroup size="small" aria-label="large button group" className="border p-1">
+                                <ButtonGroup size="small" aria-label="large button group" className="border p-1 ms-3">
                                     <Tooltip title="Tập trước" placement="top">
                                         <IconButton
                                             key="one"
@@ -370,7 +371,7 @@ export default function VideoDetail() {
                                 </ButtonGroup>
                             </Grid>
                         </Grid>
-                        <Grid container sx={{ mt: 3 }} className="p-3 ps-4 d-block d-xl-none">
+                        <Grid container sx={{ mt: 3 }} className="ps-3 d-block d-xl-none">
                             <BottomAds />
                         </Grid>
                         <Grid container sx={{ mt: 3 }} className="ps-4">
@@ -379,7 +380,7 @@ export default function VideoDetail() {
                             />
                         </Grid>
                     </Grid>
-                    <Grid item md={12} lg={2} className="d-none d-xl-block">
+                    <Grid item md={12} lg={2} className="d-none d-xl-block ps-0">
                         <RightAds />
                     </Grid>
                 </Grid>

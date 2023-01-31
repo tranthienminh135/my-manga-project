@@ -92,16 +92,16 @@ export default function Content() {
                         }}
                         callBackFn={handleClickVideo}
                     />
-                    <Grid container sx={{ mt: 3 }} className="p-3 d-block d-xl-none">
+                    <Grid container sx={{ mt: 3 }} className="p-3 pe-0 d-block d-xl-none">
                         <TopAds />
                     </Grid>
-                    <Grid container sx={{ mt: 3 }} className="p-3">
+                    <Grid container sx={{ mt: 3 }} className="p-3 pe-0">
                         {playlistItemsState && (
                             <MainContent key={status} status={status} playlistItems={playlistItemsState} />
                         )}
                         <Sidebar archives={youtubePlaylistsState ? youtubePlaylistsState.items : []} />
                     </Grid>
-                    <Grid container sx={{ mt: 3 }} className="p-3 d-block d-xl-none">
+                    <Grid container sx={{ mt: 3 }} className="p-3 pe-0 d-block d-xl-none">
                         <BottomAds />
                     </Grid>
                     <Grid container sx={{ mt: 3 }} className="ps-2">
