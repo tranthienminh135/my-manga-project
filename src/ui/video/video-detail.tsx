@@ -5,7 +5,7 @@ import SkipNextIcon from '@mui/icons-material/SkipNext';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import UpdateIcon from '@mui/icons-material/Update';
 import UpdateDisabledIcon from '@mui/icons-material/UpdateDisabled';
-import { Tooltip, Typography } from '@mui/material';
+import { Chip, Tooltip, Typography } from '@mui/material';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
@@ -264,36 +264,6 @@ export default function VideoDetail() {
                         </Grid>
                         <Grid container sx={{ mt: 3 }}>
                             <Grid item xs={12} className="text-center m-auto p-3">
-                                <FormControl sx={{ width: '100%' }} className="p-4 ps-5">
-                                    <Select
-                                        value={playlistItemDetailState.snippet.resourceId.videoId}
-                                        onChange={handleVideoChange}
-                                        displayEmpty
-                                        inputProps={{ 'aria-label': 'Without label' }}
-                                        name="video"
-                                        sx={{
-                                            borderRadius: '20px',
-                                        }}
-                                    >
-                                        {playListItemsDetail &&
-                                            playListItemsDetail.items &&
-                                            playListItemsDetail.items.length > 0 &&
-                                            playListItemsDetail.items.map(
-                                                (item: YoutubePlaylistItemsItems, index: number) => {
-                                                    return (
-                                                        <MenuItem
-                                                            key={item.snippet.resourceId.videoId}
-                                                            value={item.snippet.resourceId.videoId}
-                                                        >
-                                                            <Typography className="w-100">
-                                                                {item.snippet.title}
-                                                            </Typography>
-                                                        </MenuItem>
-                                                    );
-                                                },
-                                            )}
-                                    </Select>
-                                </FormControl>
                                 <YouTube
                                     key={playlistItemDetailState.snippet.resourceId.videoId}
                                     videoId={playlistItemDetailState.snippet.resourceId.videoId}
@@ -312,7 +282,11 @@ export default function VideoDetail() {
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                <ButtonGroup size="small" aria-label="large button group" className="border p-1 ms-3">
+                                <ButtonGroup
+                                    size="small"
+                                    aria-label="large button group"
+                                    className="border p-2 ms-3 btn"
+                                >
                                     <Tooltip title="Tập trước" placement="top">
                                         <IconButton
                                             key="one"
@@ -369,6 +343,38 @@ export default function VideoDetail() {
                                         </IconButton>
                                     </Tooltip>
                                 </ButtonGroup>
+                                <FormControl className="ms-2 border-0">
+                                    <Select
+                                        value={playlistItemDetailState.snippet.resourceId.videoId}
+                                        onChange={handleVideoChange}
+                                        displayEmpty
+                                        inputProps={{ 'aria-label': 'Without label' }}
+                                        name="video"
+                                        className="p-0"
+                                    >
+                                        {playListItemsDetail &&
+                                            playListItemsDetail.items &&
+                                            playListItemsDetail.items.length > 0 &&
+                                            playListItemsDetail.items.map(
+                                                (item: YoutubePlaylistItemsItems, index: number) => {
+                                                    return (
+                                                        <MenuItem
+                                                            key={item.snippet.resourceId.videoId}
+                                                            value={item.snippet.resourceId.videoId}
+                                                        >
+                                                            <Chip
+                                                                variant="outlined"
+                                                                color="primary"
+                                                                label={`Tập ${index + 1}`}
+                                                                className="btn"
+                                                            />
+                                                            <Typography className="w-100"></Typography>
+                                                        </MenuItem>
+                                                    );
+                                                },
+                                            )}
+                                    </Select>
+                                </FormControl>
                             </Grid>
                         </Grid>
                         <Grid container sx={{ mt: 3 }} className="ps-3 d-block d-xl-none">
