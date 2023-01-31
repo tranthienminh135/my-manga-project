@@ -31,8 +31,8 @@ export default function TitlebarImageList() {
 
     return youtubePlaylistsState && youtubePlaylistsState.items && youtubePlaylistsState.items.length > 0 ? (
         <ImageList sx={{ width: '100%', height: '100%' }}>
-            {[...youtubePlaylistsState.items].reverse().map((item: YoutubePlaylistsItem) => (
-                <Tooltip title={item.snippet.title} placement="top" key={item.id}>
+            {[...youtubePlaylistsState.items].reverse().map((item: YoutubePlaylistsItem, index: number) => (
+                <Tooltip title={`${item.snippet.title}`} placement="top" key={item.id}>
                     <Button
                         sx={{ p: 0, m: 0, width: '100%' }}
                         className="shadow"
