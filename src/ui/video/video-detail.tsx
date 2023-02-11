@@ -263,7 +263,7 @@ export default function VideoDetail() {
                             <TopAds />
                         </Grid>
                         <Grid container sx={{ mt: 3 }}>
-                            <Grid item xs={12} className="text-center m-auto p-3">
+                            <Grid item xs={12} className="text-center m-auto ">
                                 <YouTube
                                     key={playlistItemDetailState.snippet.resourceId.videoId}
                                     videoId={playlistItemDetailState.snippet.resourceId.videoId}

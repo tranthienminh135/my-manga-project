@@ -23,7 +23,14 @@ import jwtDecode from 'jwt-decode';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { ALERT_INFO, ERROR_CODE, PERMISSION, UrlFeApp, YOUTUBE_PARAMS } from '../../core/constants/common';
+import {
+    ADMIN_PATH_LIST,
+    ALERT_INFO,
+    ERROR_CODE,
+    PERMISSION,
+    UrlFeApp,
+    YOUTUBE_PARAMS,
+} from '../../core/constants/common';
 import { googleLoginActions } from '../../core/redux/slice/login-google-slice';
 import { playlistItemsActions } from '../../core/redux/slice/playlist-items-slice';
 import { getPlaylistsData, playlistsActions } from '../../core/redux/slice/playlists-slice';
@@ -43,8 +50,25 @@ const pages = [
         id: 0,
         name: 'Trang chủ',
         url: UrlFeApp.HOME,
+        isAdmin: false,
     },
 ];
+const adminPages = [
+    {
+        id: 1,
+        name: 'Excel',
+        url: UrlFeApp.EXCEL,
+        isAdmin: true,
+    },
+];
+
+const handleRenderPages = (isAdmin: boolean) => {
+    if (isAdmin) {
+        return [...pages, ...adminPages];
+    } else {
+        return [...pages];
+    }
+};
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -186,6 +210,9 @@ export default function NavComponent() {
         setUserInfo(initialUserGoogleInfoState.userGoogleInfo);
         setMessageGoogleLogin(ALERT_INFO.LOGOUT.SUCCESS);
         setIsOpenAlert(true);
+        if (ADMIN_PATH_LIST.some((data: any) => data === location.pathname)) {
+            navigate(UrlFeApp.HOME);
+        }
     };
 
     const handleCloseModal = () => {
@@ -202,6 +229,10 @@ export default function NavComponent() {
 
     const handleTargetNav = (url: string) => {
         navigate(url);
+    };
+
+    const handleSearchVideo = () => {
+        console.log('name', 'value');
     };
 
     return (
@@ -257,7 +288,7 @@ export default function NavComponent() {
                                     display: { xs: 'block', md: 'none' },
                                 }}
                             >
-                                {pages.map((page) => (
+                                {handleRenderPages(userInfo.isAdmin).map((page) => (
                                     <MenuItem key={page.id} onClick={() => handleTargetNav(page.url)}>
                                         <Typography textAlign="center">{page.name}</Typography>
                                     </MenuItem>
@@ -284,7 +315,7 @@ export default function NavComponent() {
                             LOGO
                         </Typography>
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                            {pages.map((page) => (
+                            {handleRenderPages(userInfo.isAdmin).map((page) => (
                                 <Button
                                     key={page.id}
                                     onClick={() => handleTargetNav(page.url)}
@@ -294,7 +325,7 @@ export default function NavComponent() {
                                 </Button>
                             ))}
                         </Box>
-                        <IconButton>
+                        <IconButton onClick={handleSearchVideo}>
                             <SearchIcon sx={{ color: 'white' }} />
                         </IconButton>
 
