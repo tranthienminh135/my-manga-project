@@ -1,3 +1,4 @@
+import { ExcelComponent } from '../../ui/excel/excel-component';
 import { YoutubeParams } from '../types/youtube';
 
 export const COMMON = {
@@ -15,6 +16,7 @@ export const UrlFeApp = {
     HOME: '/home',
     CONTENT: '/content',
     DETAIL: '/detail',
+    EXCEL: '/excel',
 };
 
 export const YOUTUBE_PARAMS: YoutubeParams = {
@@ -55,3 +57,12 @@ export const ALERT_INFO = {
 export const FACEBOOK = {
     PAGE_ID: process.env.REACT_APP_FACEBOOK_PAGE_ID ? process.env.REACT_APP_FACEBOOK_PAGE_ID : '',
 };
+
+export const ADMIN_PATH = [
+    {
+        path: `${UrlFeApp.EXCEL}`,
+        element: <ExcelComponent />,
+    },
+];
+
+export const ADMIN_PATH_LIST = [UrlFeApp.EXCEL];
