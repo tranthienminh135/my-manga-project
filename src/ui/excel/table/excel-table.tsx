@@ -335,10 +335,12 @@ export default function EnhancedTable(props: any) {
                                                         : ''
                                                 }`}
                                             >
-                                                {row.salary.toLocaleString('it-IT', {
-                                                    style: 'currency',
-                                                    currency: 'VND',
-                                                })}
+                                                {row.salary
+                                                    ? row.salary.toLocaleString('it-IT', {
+                                                          style: 'currency',
+                                                          currency: 'VND',
+                                                      })
+                                                    : 'Dữ liệu không hợp lệ'}
                                             </TableCell>
                                         </TableRow>
                                     );
