@@ -75,7 +75,7 @@ export default function EnhancedTable(props: any) {
     const { sheetData, excelFunc } = props;
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof Data>('idCard');
-    const [selected, setSelected] = React.useState<readonly string[]>([]);
+    const [selected, setSelected] = React.useState<readonly any[]>([]);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [tableData, setTableData] = React.useState<Data[]>(rows);
@@ -92,7 +92,6 @@ export default function EnhancedTable(props: any) {
                         Object.keys(sheetData).forEach((key: string) => {
                             arr = structuredClone([...arr, ...sheetData[key]]);
                         });
-
                         const newArr = arr.map((data: any) => {
                             const temp = data.time.split('/');
                             const year = temp[2];
@@ -147,7 +146,6 @@ export default function EnhancedTable(props: any) {
                 Object.keys(sheetData).forEach((key: string) => {
                     arr = structuredClone([...arr, ...sheetData[key]]);
                 });
-
                 const newArr = arr.map((data: any) => {
                     const temp = data.time.split('/');
                     const year = temp[2];
@@ -227,19 +225,20 @@ export default function EnhancedTable(props: any) {
 
     const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.checked) {
-            const newSelected = tableData.map((n) => n.name);
+            const newSelected = tableData.map((n) => n.id);
             setSelected(newSelected);
             return;
         }
         setSelected([]);
     };
 
-    const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
-        const selectedIndex = selected.indexOf(name);
+    const handleClick = (event: React.MouseEvent<unknown>, id: any) => {
+        console.log(selected.indexOf(id));
+        const selectedIndex = selected.indexOf(id);
         let newSelected: readonly string[] = [];
 
         if (selectedIndex === -1) {
-            newSelected = newSelected.concat(selected, name);
+            newSelected = newSelected.concat(selected, id);
         } else if (selectedIndex === 0) {
             newSelected = newSelected.concat(selected.slice(1));
         } else if (selectedIndex === selected.length - 1) {
@@ -260,7 +259,7 @@ export default function EnhancedTable(props: any) {
         setPage(0);
     };
 
-    const isSelected = (name: string) => selected.indexOf(name) !== -1;
+    const isSelected = (id: any) => selected.indexOf(id) !== -1;
 
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - tableData.length) : 0;
 
@@ -271,6 +270,10 @@ export default function EnhancedTable(props: any) {
         } else {
             handleExcelData();
         }
+    };
+
+    const renderBootstrapAlertSalary = (salary: number, exValue: string) => {
+        return salary >= 2000000 && exValue === 'TOTAL_MONTH' ? 'text-danger fw-bold' : '';
     };
 
     return (
@@ -295,13 +298,13 @@ export default function EnhancedTable(props: any) {
                             {stableSort(tableData, getComparator(order, orderBy))
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, index) => {
-                                    const isItemSelected = isSelected(row.name);
+                                    const isItemSelected = isSelected(row.id);
                                     const labelId = `enhanced-table-checkbox-${index}`;
 
                                     return (
                                         <TableRow
                                             hover
-                                            onClick={(event) => handleClick(event, row.name)}
+                                            onClick={(event) => handleClick(event, row.id)}
                                             role="checkbox"
                                             aria-checked={isItemSelected}
                                             tabIndex={-1}
@@ -317,23 +320,36 @@ export default function EnhancedTable(props: any) {
                                                     }}
                                                 />
                                             </TableCell>
-                                            <TableCell component="th" id={labelId} scope="row" padding="none">
+                                            <TableCell
+                                                component="th"
+                                                id={labelId}
+                                                scope="row"
+                                                padding="none"
+                                                className={renderBootstrapAlertSalary(row.salary, excelFunc.value)}
+                                            >
                                                 {row.name}
                                             </TableCell>
-                                            <TableCell align="right">{row.idCard}</TableCell>
-                                            <TableCell align="right">
+                                            <TableCell
+                                                align="right"
+                                                className={renderBootstrapAlertSalary(row.salary, excelFunc.value)}
+                                            >
+                                                {row.idCard}
+                                            </TableCell>
+                                            <TableCell
+                                                align="right"
+                                                className={renderBootstrapAlertSalary(row.salary, excelFunc.value)}
+                                            >
                                                 {row.contractId ? row.contractId : 'Không có dữ liệu'}
                                             </TableCell>
-                                            <TableCell align="right">
+                                            <TableCell
+                                                align="right"
+                                                className={renderBootstrapAlertSalary(row.salary, excelFunc.value)}
+                                            >
                                                 {row.time ? row.time.toLocaleDateString() : 'Không có dữ liệu'}
                                             </TableCell>
                                             <TableCell
                                                 align="right"
-                                                className={`${
-                                                    row.salary >= 2000000 && excelFunc.value === 'TOTAL_MONTH'
-                                                        ? 'text-danger fw-bold'
-                                                        : ''
-                                                }`}
+                                                className={renderBootstrapAlertSalary(row.salary, excelFunc.value)}
                                             >
                                                 {row.salary
                                                     ? row.salary.toLocaleString('it-IT', {
