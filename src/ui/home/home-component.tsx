@@ -8,7 +8,6 @@ import LeftAds from '../ads/left-ads';
 import RightAds from '../ads/right-ads';
 import TopAds from '../ads/top-ads';
 import CommentFacebook from '../facebook/comment-facebook-component';
-import LikeFacebook from '../facebook/like-facebook-component';
 import MainFeaturedPost from '../main-featured-post/main-featured-post';
 import Main from '../main/main-component';
 import Sidebar from '../side-bar/side-bar';
@@ -42,7 +41,6 @@ export default function Home() {
                         <TopAds />
                     </Grid>
                     <Grid container sx={{ mt: 3 }}>
-                        <LikeFacebook currentHref={window.location.href} />
                         <Main />
                         <Sidebar archives={youtubePlaylistsState ? youtubePlaylistsState.items : []} />
                     </Grid>
