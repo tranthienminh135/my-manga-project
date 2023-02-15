@@ -41,6 +41,15 @@ export default function Home() {
                         <TopAds />
                     </Grid>
                     <Grid container sx={{ mt: 3 }}>
+                        <div
+                            className="fb-like"
+                            data-href={window.location.href}
+                            data-width=""
+                            data-layout="standard"
+                            data-action="like"
+                            data-size="large"
+                            data-share="true"
+                        ></div>
                         <Main />
                         <Sidebar archives={youtubePlaylistsState ? youtubePlaylistsState.items : []} />
                     </Grid>
