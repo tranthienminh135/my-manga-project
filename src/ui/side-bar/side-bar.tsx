@@ -34,6 +34,12 @@ export default function Sidebar(props: SidebarProps) {
         targetUrl(`https://www.facebook.com/profile.php?id=${FACEBOOK.PAGE_ID}`);
     };
 
+    const handleCopyText = (e: any, text: string) => {
+        e.preventDefault();
+        navigator.clipboard.writeText(text);
+        alert(`Đã sao chép số tài khoản ${text} vào bộ nhớ đệm.`);
+    };
+
     return (
         <Grid item xs={12} md={4} className="p-3">
             <div style={{ maxHeight: '1515px' }}>
@@ -41,7 +47,86 @@ export default function Sidebar(props: SidebarProps) {
                     <Typography variant="h6" gutterBottom>
                         Giới thiệu
                     </Typography>
-                    <Typography>Giới thiệu</Typography>
+                    <Typography>
+                        🌐{' '}
+                        {
+                            <a
+                                className="text-danger"
+                                href="https://tranthienminh.online/"
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                Tranthienminh.online
+                            </a>
+                        }{' '}
+                        là trang web chuyên review truyện tranh manhua.
+                    </Typography>
+                    <Typography>
+                        🔍 Hãy ghé thăm kênh Youtube chính thức tại{' '}
+                        {
+                            <a
+                                className="text-danger"
+                                href="https://www.youtube.com/@tranthienminh135"
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                Youtube.com/@tranthienminh135
+                            </a>
+                        }{' '}
+                        và fanpage{' '}
+                        {
+                            <a
+                                className="text-danger"
+                                href="https://www.facebook.com/tranthienminh135/"
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                Facebook.com/tranthienminh135/
+                            </a>
+                        }{' '}
+                        để cập nhật thông tin mới nhất.
+                    </Typography>
+                    <Typography>
+                        💵 Ủng hộ nhóm 1 ly cafe sáng bằng cách chuyển khoản qua kênh Momo (
+                        {
+                            <a
+                                className="text-danger"
+                                href="https://me.momo.vn/AEI9TgsDuyC9i2IDIbsKsP"
+                                onClick={(e) => handleCopyText(e, '0395800661')}
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                0395800661
+                            </a>
+                        }
+                        ) hoặc Vietcombank (
+                        {
+                            <a
+                                href="https://me.momo.vn/AEI9TgsDuyC9i2IDIbsKsP"
+                                className="text-danger"
+                                onClick={(e) => handleCopyText(e, '0041000339850')}
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                0041000339850
+                            </a>
+                        }
+                        ).
+                    </Typography>
+                    <Typography>
+                        🆘 Liên hệ quảng cáo hay khiếu nại về vấn đề bản quyền vui lòng thông qua email{' '}
+                        {
+                            <a
+                                className="text-danger"
+                                href="mailto:tranthienminh135@gmail.com?subject=Xin chào Trần Thiên Minh"
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                Tranthienminh135@gmail.com
+                            </a>
+                        }
+                        .
+                    </Typography>
                 </Paper>
                 <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
                     Mới nhất
