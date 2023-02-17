@@ -113,33 +113,6 @@ export default function NavComponent() {
     const [randomNumber, setRandomNumber] = useState<number>(Math.floor(Math.random() * YOUTUBE_PARAMS.KEY.length));
 
     useEffect(() => {
-        const filterAllYoutubePlaylistItems = async (youtubePlaylistsParam: YoutubePlaylists) => {
-            const youtubePlaylistItemsResponse: Array<YoutubePlaylistItems> = await Promise.all(
-                youtubePlaylistsParam.items.map(async (data: any) => {
-                    const requestYoutubePlaylistItemData = {
-                        contentDetails: YOUTUBE_PARAMS.CONTENT_DETAILS,
-                        id: YOUTUBE_PARAMS.ID,
-                        snippet: YOUTUBE_PARAMS.SNIPPET,
-                        maxResults: YOUTUBE_PARAMS.MAX_RESULTS,
-                        status: YOUTUBE_PARAMS.STATUS,
-                        playlistId: data.id,
-                        key: YOUTUBE_PARAMS.KEY[randomNumber],
-                    };
-                    return await fetchGetYoutubePlaylistItems(requestYoutubePlaylistItemData);
-                }),
-            );
-            dispatch(playlistItemsActions.setPlaylistItemsData(youtubePlaylistItemsResponse));
-        };
-        if (youtubePlaylistsRedux.items.length > 1) {
-            filterAllYoutubePlaylistItems(youtubePlaylistsRedux);
-        }
-    }, [youtubePlaylistsRedux, dispatch, randomNumber]);
-
-    const fetchGetYoutubePlaylistItems = async (params: any) => {
-        return await getYoutubePlaylistItems(params);
-    };
-
-    useEffect(() => {
         const requestYoutubePlaylistsData = {
             contentDetails: YOUTUBE_PARAMS.CONTENT_DETAILS,
             id: YOUTUBE_PARAMS.ID,
@@ -160,6 +133,33 @@ export default function NavComponent() {
                 }
             });
     }, [dispatch, randomNumber]);
+
+    useEffect(() => {
+        const filterAllYoutubePlaylistItems = async (youtubePlaylistsParam: YoutubePlaylists) => {
+            const youtubePlaylistItemsResponse: Array<YoutubePlaylistItems> = await Promise.all(
+                youtubePlaylistsParam.items.map(async (data: any) => {
+                    const requestYoutubePlaylistItemData = {
+                        contentDetails: YOUTUBE_PARAMS.CONTENT_DETAILS,
+                        id: YOUTUBE_PARAMS.ID,
+                        snippet: YOUTUBE_PARAMS.SNIPPET,
+                        maxResults: YOUTUBE_PARAMS.MAX_RESULTS,
+                        status: YOUTUBE_PARAMS.STATUS,
+                        playlistId: data.id,
+                        key: YOUTUBE_PARAMS.KEY[randomNumber],
+                    };
+                    return await fetchGetYoutubePlaylistItems(requestYoutubePlaylistItemData);
+                }),
+            );
+            dispatch(playlistItemsActions.setPlaylistItemsData(youtubePlaylistItemsResponse));
+        };
+        if (youtubePlaylistsRedux.items.length > 0 && youtubePlaylistsRedux.etag) {
+            filterAllYoutubePlaylistItems(youtubePlaylistsRedux);
+        }
+    }, [youtubePlaylistsRedux, dispatch, randomNumber]);
+
+    const fetchGetYoutubePlaylistItems = async (params: any) => {
+        return await getYoutubePlaylistItems(params);
+    };
 
     useEffect(() => {
         if (location.pathname === UrlFeApp.DEFAULT) {

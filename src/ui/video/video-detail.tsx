@@ -118,10 +118,22 @@ export default function VideoDetail() {
             }
         } else {
             if (playListItemsDetail && playListItemsDetail.items && playListItemsDetail.items.length > 0) {
-                setPlaylistItemDetailState(() => {
-                    setCurrentIndex(currentIndex + 1);
-                    return playListItemsDetail.items[currentIndex + 1];
-                });
+                if (playListItemsDetail.items.length > currentIndex + 1) {
+                    setPlaylistItemDetailState(() => {
+                        setCurrentIndex(currentIndex + 1);
+                        return playListItemsDetail.items[currentIndex + 1];
+                    });
+                } else if (playListItemsDetail.items.length === currentIndex + 1) {
+                    setChangeVideoModalData({
+                        okBtn: 'Xem truyện khác',
+                        closeBtn: 'Xem lại bộ này',
+                        content: 'Bộ này đã tạm thời kết thúc hãy đón chờ tập mới trong thời gian tới.',
+                        status: 'END',
+                        isOpenChangeVideoModal: true,
+                    });
+                } else {
+                    console.log('nho hon');
+                }
             }
         }
     };
