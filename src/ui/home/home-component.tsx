@@ -39,6 +39,20 @@ export default function Home() {
                     />
                     <Grid container sx={{ mt: 3 }} className="d-block d-xl-none">
                         <TopAds />
+                        <script
+                            async
+                            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6178539232489042"
+                            crossOrigin="anonymous"
+                        ></script>
+                        <ins
+                            className="adsbygoogle"
+                            style={{ display: 'block' }}
+                            data-ad-client="ca-pub-6178539232489042"
+                            data-ad-slot="2626674470"
+                            data-ad-format="auto"
+                            data-full-width-responsive="true"
+                        ></ins>
+                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
                     </Grid>
                     <Grid container sx={{ mt: 3 }}>
                         <Main />
